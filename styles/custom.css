@@ -1,0 +1,12 @@
+.dimaano-bg{
+    background-color: rgb(164,15,17);
+}
+
+.hov:hover{
+    border-bottom: 3px solid rgb(164,15,17);
+    transition: .15s;
+}
+
+.custom-bg{
+    color: rgb(164,15,17);
+}
