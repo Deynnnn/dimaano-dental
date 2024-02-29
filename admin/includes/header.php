@@ -23,10 +23,10 @@
                     <li class="nav-item">
                         <button class="btn text-white px-3 w-100 shadow-none text-start d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#bookingLinks">
                             <div class="d-flex align-items-center">
-                                <span class="material-symbols-outlined text-white">
-                                    import_contacts
-                                </span>
-                                <span>Bookings</span>
+                            <span class="material-symbols-outlined">
+                                calendar_month
+                            </span>
+                                <span>Appointments</span>
                             </div>
                             <span><i class="bi bi-caret-down-fill"></i></span>
                         </button>
@@ -34,17 +34,17 @@
                             <ul class="nav nav-pills flex-column rounded border border-secondary">
                                 <li class="nav-item">
                                     <a class="nav-link text-white d-flex align-items-center" href="new_bookings.php">
-                                        New Bookings
+                                        New Appointments
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-white d-flex align-items-center" href="refund_bookings.php">
-                                        Refund Bookings
+                                        Refund Appointments
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-white d-flex align-items-center" href="booking_records.php">
-                                        Booking Records
+                                        Appointment Records
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -59,27 +59,19 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center" href="features_facilities.php">
-                            <span class="material-symbols-outlined">
-                                concierge
-                            </span>    
-                            Features and Facilities
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="guests.php" class="nav-link text-white d-flex align-items-center">
                             <span class="material-symbols-outlined">
                                 groups
                             </span>
-                            Guest
+                            Patients
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center" href="rooms.php">
-                            <span class="material-symbols-outlined">
-                                hotel
-                            </span>
-                            Rooms
+                        <a class="nav-link text-white d-flex align-items-center" href="services.php">
+                        <span class="material-symbols-outlined">
+                            medical_services
+                        </span>
+                            Services
                         </a>
                     </li>
                     <li class="nav-item">
@@ -87,7 +79,7 @@
                             <span class="material-symbols-outlined">
                                 contact_support
                             </span>
-                            Guest Queries
+                            Patient Queries
                         </a>
                     </li>
                     <li class="nav-item">
@@ -96,14 +88,6 @@
                             hotel_class 
                             </span> 
                             Rating and Review
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center" href="carousel.php">
-                            <span class="material-symbols-outlined">
-                                view_carousel
-                            </span>    
-                            Carousel
                         </a>
                     </li>
                     <li class="nav-item">

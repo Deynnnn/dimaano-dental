@@ -13,6 +13,11 @@
     <title>ADMIN PANEL - SETTINGS</title>
     <?php require('includes/links.php');?>
     <style>
+        .custom-alert{
+            position: fixed;
+            top: 80px;
+            right: 25px;
+        }
         #dashboard-menu{
             position: fixed;
             height: 100%;
