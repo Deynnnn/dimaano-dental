@@ -1,6 +1,3 @@
-<?php
-    require('admin/includes/dbConfig.php');
-?>
 <!DOCTYPE html>
 <html lang="en">
  

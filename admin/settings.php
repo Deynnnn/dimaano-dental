@@ -1,6 +1,5 @@
 <?php
     require('includes/essentials.php');
-    require('includes/dbConfig.php');
 
     adminLogin();
 ?>
@@ -13,6 +12,11 @@
     <title>ADMIN PANEL - SETTINGS</title>
     <?php require('includes/links.php');?>
     <style>
+        .custom-alert{
+            position: fixed;
+            top: 80px;
+            right: 25px;
+        }
         #dashboard-menu{
             position: fixed;
             height: 100%;
@@ -34,8 +38,28 @@
     <?php 
         require('includes/header.php');
     ?>
-
+    <div class="container-fluid" id="main-content">
+        <div class="row">
+            <div class="col-lg-10 ms-auto p-4 overflow-hidden">
+                <!--shutdown section-->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h5 class="card-title m-0">Shutdown Website</h5>
+                            <div class="form-check form-switch">
+                                <form action="">
+                                    <input onchange="upd_shutdown(this.value)" class="form-check-input shadow-none" type="checkbox" id="shutdown_toggle">
+                                </form>
+                            </div>
+                        </div>
+                        <p class="card-text" > No patients will be allowed to set appointment, when shutdown mode is turned on.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <?php require('includes/scripts.php');?>
-    <script src="scripts/dashboard.js"></script>
+    <script src="scripts/settings.js"></script>
 </body>
 </html>

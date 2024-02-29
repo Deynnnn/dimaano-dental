@@ -1,7 +1,7 @@
 <?php
 
-    require('../inc/essentials.php');
-    require('../inc/db_cofig.php'); 
+    require('../includes/essentials.php');
+    require('../includes/dbConfig.php'); 
     adminLogin();
 
     if(isset($_POST['booking_analytics']))

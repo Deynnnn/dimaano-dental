@@ -6,3 +6,24 @@
 <!-- icon link -->
 <link rel="shortcut icon" href="/images/logo.png" type="image/x-icon">
 <link rel="stylesheet" href="/styles/custom.css">
+
+<?php 
+
+    session_start();
+
+    require('admin/includes/dbConfig.php');
+    require('admin/includes/essentials.php');
+
+    $setting_q = "SELECT * FROM `settings` WHERE `id`=?";
+    $values = [1];
+    $setting_r = mysqli_fetch_assoc(select($setting_q,$values, 'i'));
+
+    if($setting_r['shutdown']){
+        echo<<<alertbar
+        <div class="bg-danger text-center p2 fw-bold">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+            Appointments are temporarily closed!
+        </div>
+        alertbar;
+    }
+?>

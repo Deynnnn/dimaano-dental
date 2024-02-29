@@ -59,7 +59,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="guests.php" class="nav-link text-white d-flex align-items-center">
+                        <a href="patients.php" class="nav-link text-white d-flex align-items-center">
                             <span class="material-symbols-outlined">
                                 groups
                             </span>
@@ -75,7 +75,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center" href="guest_queries.php">
+                        <a class="nav-link text-white d-flex align-items-center" href="patient_queries.php">
                             <span class="material-symbols-outlined">
                                 contact_support
                             </span>

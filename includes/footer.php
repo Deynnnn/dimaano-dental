@@ -48,4 +48,7 @@
             }
         }
     }
+
+    setActive();
+
 </script>
