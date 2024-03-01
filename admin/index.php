@@ -26,7 +26,7 @@
         }
         .custom-bg{
             background-color:  rgb(165,16,18);
-            border: 1px solid  rgb(165,16,18)
+            border: 1px solid  rgb(165,16,18);
         }
         .custom-bg:hover{
             background-color:  rgb(165,16,18,.85);
