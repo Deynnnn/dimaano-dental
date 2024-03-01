@@ -45,6 +45,10 @@
             .site-title{
                 color: rgb(165,16,18);
             }
+            .active{
+            border-bottom: 3px solid rgb(164,15,17);
+            transition: .15s;
+        }
         </style>
 </head>
 <body>
@@ -96,7 +100,7 @@
                         <input type="time" class="form-control shadow-none" name="time" min="09:00" max="17:00" required>
                     </div>  
                     <div class="form-floating col-md-12 mb-1 ps-0">
-                        <select class="form-select shadow-none" name="service" aria-label="Default select example" id="floatingInput" required>
+                        <select class="form-select shadow-none" name="service" aria-label="Default select example" id="floatingInput">
                             <?php
                                 // $ser_q = "SELECT `name` FROM `services` WHERE `removed`=0 AND `status`=1";
                                 // $res = $con->query($ser_q); 
@@ -113,7 +117,7 @@
                     <div class="form-group">
                         <div class="g-recaptcha" data-sitekey="6LdomHIoAAAAACjHsnXIx0GvV4hIUVw8_rycZVPl"></div>
                     </div>
-                    <button type="submit" class="btn btn-md fw-bold btn-primary" name="submit">Book Appointment</button>
+                    <button type="submit" class="btn btn-md fw-bold btn-primary" name="submit" onclick='checkLoginToBook($login,$service_data[id])'>Book Appointment</button>
                 </form>
             </div>
         </div>

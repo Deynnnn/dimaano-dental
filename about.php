@@ -17,6 +17,10 @@
             right: 25px;
             z-index: 11;
         }
+        .active{
+            border-bottom: 3px solid rgb(164,15,17);
+            transition: .15s;
+        }
     </style>
     <div>
         <?php require('includes/navbar.php');?>

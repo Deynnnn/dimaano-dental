@@ -11,6 +11,10 @@
         .site-title{
             color: rgb(165,16,18);
         }
+        .active{
+            border-bottom: 3px solid rgb(164,15,17);
+            transition: .15s;
+        }
     </style>
     <div>
         <?php require('includes/navbar.php');?>

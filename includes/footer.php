@@ -49,6 +49,14 @@
         }
     }
 
+    function checkLoginToBook(status,service_id){
+        if(status){
+            window.location.href='confirm_appointment.php?id='+service_id;
+        }else{
+            alert('error', 'Please login to set appointment schedule!')
+        }
+    }
+
     setActive();
 
 </script>

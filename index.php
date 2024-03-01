@@ -12,6 +12,23 @@
         .site-title{
             color: rgb(165,16,18);
         }
+        .active{
+            border-bottom: 3px solid rgb(164,15,17);
+            transition: .15s;
+        }
+        .custom-alert{
+            position: fixed;
+            top: 25px;
+            right: 25px;
+        }
+        .custom-bg{
+            background-color:  rgb(165,16,18);
+            border: 1px solid  rgb(165,16,18);
+        }
+        .custom-bg:hover{
+            background-color:  rgb(165,16,18,.85);
+            border: 1px solid  rgb(165,16,18)
+        }
     </style>
     <div>
         <?php require('includes/navbar.php');?>
@@ -44,55 +61,72 @@
                         $thumb_res = mysqli_fetch_assoc($thumb_q);
                         $service_thumb = SERVICES_IMG_PATH.$thumb_res['image'];
                     }
-                        echo<<<serdata
-                        <div class="container">
-                            <div class="row">
-                                <div class="card col-lg-4 col-md-6 col-sm-12" style="width: 25rem;">
-                                    <img src="$service_thumb" class="card-img-top" alt="...">
-                                    <div class="card-body">
+                    $book_btn = '';
+
+                    if(!$setting_r['shutdown']){
+                        $login=0;
+                        if(isset($_SESSION['login']) && $_SESSION['login']==true){
+                            $login=1;
+                        }
+                        $book_btn = "<button onclick='checkLoginToBook($login,$service_data[id])' class='btn btn-sm text-white custom-bg shadow-none'>Schedule Appointment Now</button>";
+                    }
+
+                    $rating_q = "SELECT AVG(rating) AS `avg_rating` FROM `rating_review` WHERE `service_id`='$service_data[id]' ORDER BY `id` DESC LIMIT 20";
+                    $rating_res = mysqli_query($con,$rating_q);
+                    $rating_fetch =mysqli_fetch_assoc($rating_res);
+
+                    $rating_data = "";
+
+                    if($rating_fetch['avg_rating']!= NULL){
+                        $rating_data = "<div class='rating mb-4'>
+                                            <span class='badge rounded-pill bg-light'>
+                                        ";
+    
+                        for($i=0;  $i < $rating_fetch['avg_rating']; $i++){
+                            $rating_data .= "<i class='bi bi-star-fill text-warning'></i> ";
+                        }
+    
+                        $rating_data .= "</span>
+                                        </div>";
+                    }else{
+                        $rating_data ="<div class='rating mb-4'>
+                                            <span class='badge rounded-pill bg-dark'>NO RATINGS YET!</span>
+                                        </div>";
+                    }
+
+                    $description = $service_data['description'];
+                    $maxLength = 200;
+                    $truncatedData = substr($description, 0, $maxLength);
+
+
+
+                    echo<<<serdata
+                    <div class="container">
+                        <div class="row">
+                            <div class="card col-lg-4 col-md-6 col-sm-12" style="width: 25rem;">
+                                <img src="$service_thumb" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <div class="d-flex align-content-center justify-content-between mb-2">
                                         <h3 class="display-6 lh-1 fw-bold">$service_data[name]</h3>
-                                        <h5 class="mb-4 fw-bold">₱$service_data[price]</h5>
-                                        <p class="card-text">$service_data[description]</p>
+                                        <h6 class="mb-4 fw-medium">₱$service_data[price]</h6>
+                                    </div>
+                                    <p class="card-text">$truncatedData...</p>
+                                    $rating_data
+                                    <hr class="text-light-sm">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <a href="service_details.php?id=$service_data[id]" class="btn btn-sm btn-outline-dark shadow-none ">More details</a>
+                                        $book_btn
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        serdata;
+                    </div>
+                    serdata;
                 }
             
             ?>
         </div>
     </div>
-    <!-- <div class="container" id="custom-cards service">
-        <div class="row">
-            <h2 class="pb-2 border-bottom fw-bold">Dental Services</h2>
-            <div class="col-lg-6 col-12" style="width: 25rem;">
-                <img src="images/logo.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h3 class="display-6 lh-1 fw-bold">Service Name</h3>
-                    <h5 class="mb-4 fw-bold">₱ Price</h5>
-                    <p class="card-text">service description</p>
-                </div>
-            </div>
-            <div class="col-lg-6 col-12" style="width: 25rem;">
-                <img src="images/logo.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h3 class="display-6 lh-1 fw-bold">Service Name</h3>
-                    <h5 class="mb-4 fw-bold">₱ Price</h5>
-                    <p class="card-text">service description</p>
-                </div>
-            </div>
-            <div class="col-lg-6 col-12" style="width: 25rem;">
-                <img src="images/logo.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h3 class="display-6 lh-1 fw-bold">Service Name</h3>
-                    <h5 class="mb-4 fw-bold">₱ Price</h5>
-                    <p class="card-text">service description</p>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
 
     <!-- location offered section -->
     <div class="container px-4 py-5" id="custom-cards">

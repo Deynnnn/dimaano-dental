@@ -1,0 +1,6 @@
+- ayus na login / register
+- ayus na din shutdown feature settings
+- ayus na update ng patient profile
+- ayus na setting ng appointment
+- palitan ang phone_num column sa patients table to conNum
+- check lagi ang SITE_URL sa admin/include/essentials

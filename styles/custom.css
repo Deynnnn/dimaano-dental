@@ -3,7 +3,7 @@
 }
 
 .hov:hover{
-    border-bottom: 3px solid rgb(164,15,17);
+    background-color: #dcdcdc;
     transition: .15s;
 }
 
