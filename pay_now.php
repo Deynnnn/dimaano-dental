@@ -11,7 +11,7 @@
         $ORDER_ID = 'APP_'.$_SESSION['uId'].random_int(111,999);
         $CUST_ID = $_SESSION['uId'];
 
-        $query1 = "INSERT INTO `appointment_order`(`patient_id`, `service_id`, `date`, `time`, `appointment_id`,  `trans_amt`, `trans_status`) VALUES (?,?,?,?,?,?,?)";
+        $query1 = "INSERT INTO `appointment_order`(`patient_id`, `service_id`, `date`, `time`, `order_id`,  `trans_amt`, `trans_status`) VALUES (?,?,?,?,?,?,?)";
         insert($query1, [$CUST_ID, $_SESSION['service']['id'],$frm_data['date'],$frm_data['time'],$ORDER_ID,$frm_data['amount'], 'pending'], 'issssis');
         $booking_id = mysqli_insert_id($con);
 

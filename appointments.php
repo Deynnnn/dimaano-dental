@@ -59,10 +59,11 @@
             </div>
             <?php
                 $start = 0;
-                $limit = 3;
-
-                $pagination = $con->query('SELECT * FROM `appointment_order` WHERE `appointment_status` = "Pending" ');
-                $num_of_rows = $pagination->num_rows;
+                $limit = 6;
+                $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE ao.appointment_status='Pending' AND ao.patient_id = ? ORDER BY ao.id DESC LIMIT $start, $limit";
+                $res = select($query, [$_SESSION['uId']], 'i');
+                // $pagination = $con->query('SELECT * FROM `appointment_order` WHERE `appointment_status` = "Pending" ');
+                $num_of_rows = $res->num_rows;
                 $pages = ceil($num_of_rows / $limit);
 
                 if(isset($_GET['page-nr'])){
@@ -70,8 +71,7 @@
                     $start = $page * $limit;
                 }
 
-                $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE ao.appointment_status='Pending' AND ao.patient_id = ? ORDER BY ao.id DESC LIMIT $start, $limit";
-                $res = select($query, [$_SESSION['uId']], 'i');
+                
 
                 while($data = mysqli_fetch_assoc($res)){
                     $created_at = date('d-m-Y', strtotime($data['created_at']));
