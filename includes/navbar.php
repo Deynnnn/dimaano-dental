@@ -18,9 +18,9 @@
                 <li class="nav-item">
                 <a class="nav-link hov" href="services.php">Services</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                 <a class="nav-link hov" href="book_appointment.php">Book an Appointment</a>
-                </li>
+                </li> -->
             </ul>
             <div class="d-flex">
                 <?php
@@ -28,6 +28,7 @@
                         echo<<<data
                             <div class="btn-group">
                                 <button type="button" class="btn btn-outline-dark shadow_none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                    <i class="bi bi-person-badge-fill fs-5"></i>
                                     $_SESSION[uName]
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-lg-end">
