@@ -127,6 +127,9 @@
             ?>
         </div>
     </div>
+    <div class="d-flex justify-content-center align-content-center">
+        <a href="services.php" class="btn btn-sm btn-outline-dark shadow-none ">See More...</a>
+    </div>
 
     <!-- location offered section -->
     <div class="container px-4 py-5" id="custom-cards">
