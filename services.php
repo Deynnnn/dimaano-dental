@@ -61,17 +61,18 @@
         <?php
             $start = 0;
             $items_per_page = 3;
-
-            $records = $con->query("SELECT * FROM `services`");
+            
+            $records = $con->query("SELECT * FROM `services` WHERE `status`");
+            
             $num_of_rows = $records->num_rows;
             $pages = ceil($num_of_rows / $items_per_page);
-
+            
             if(isset($_GET["page-nr"])){
                 $page = $_GET["page-nr"] -1;
                 $start = $page * $items_per_page;
             }
-
             $service_res = select("SELECT * FROM `services` WHERE `status`=? AND `removed`=? ORDER BY `id` DESC LIMIT $start, $items_per_page",[1,0],'ii');
+
 
             while($service_data = mysqli_fetch_assoc($service_res)){
 
@@ -120,6 +121,9 @@
                 $description = $service_data['description'];
                 $maxLength = 200;
                 $truncatedData = substr($description, 0, $maxLength);
+
+                $price = $service_data['price'];
+                $formatedPrice = number_format($price,2,'.',',');
 
 
 

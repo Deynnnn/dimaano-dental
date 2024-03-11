@@ -41,11 +41,15 @@
                     <button onclick='toggle_status($row[id],1)' class='btn btn-warning btn-sm shadow-none'>inactive</button>
                 ";
             }
+
+            $price = $row['price'];
+            $formatedPrice = number_format($price,2,'.',',');
+
             $data.="
                 <tr class='align-middle'>
                     <td>$i</td>
                     <td>$row[name]</td>
-                    <td>₱$row[price]</td>
+                    <td>₱$formatedPrice</td>
                     <td>$row[description]</td>
                     <td>$status</td>
                     <td>
