@@ -41,6 +41,8 @@
         }
 
         $service_data = mysqli_fetch_assoc($service_res);
+        $price = $service_data['price'];
+        $formatedPrice = number_format($price,2,'.',',');
     ?>
     <div class="container">
         <div class="row"> 
@@ -99,7 +101,7 @@
                 <div class="card-body">
                     <?php
                         echo<<<price
-                            <h4>₱$service_data[price]</h4>
+                            <h4>₱$formatedPrice</h4>
                         price;
 
                         $rating_q = "SELECT AVG(rating) AS `avg_rating` FROM `rating_review` WHERE `service_id`='$service_data[id]' ORDER BY `id` DESC LIMIT 20";
