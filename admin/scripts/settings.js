@@ -43,3 +43,5 @@
     window.onload = function(){
         get_general();
     }
+
+    

@@ -2,8 +2,6 @@
     require('includes/dbConfig.php');
     require('includes/essentials.php');
 
-    session_start();
-
     // if((isset($_SESSION['adminLogin']) && $_SESSION['adminLogin']==true)){
     //     redirect('dashboard.php');
     // }
@@ -59,21 +57,25 @@
 
     <?php
     
-        if(isset($_POST['login'])){
+        if(isset($_POST['login'])) {
             $frm_data = filteration($_POST);
 
-            $query = "SELECT * FROM `admin` WHERE `email`=? AND `password`=?";
-            $values = [$frm_data ['email'], $frm_data['password']];
+            $admin_exist = select("SELECT * FROM `admin` WHERE `email`=? LIMIT 1", [$frm_data ['email']], 's');
 
-            $res = select($query,$values,"ss");
-            if($res->num_rows==1){
-                $row = mysqli_fetch_assoc($res);
-                $_SESSION['adminLogin'] = true;
-                $_SESSION['adminId'] = $row['id'];
-                redirect('dashboard.php');
+            if(mysqli_num_rows($admin_exist) == 0){
+                alert("error", "Admin Account not Exist!");
             }else{
-                alert("error", "Incorrect email or password - Please check and try again!");
+                $ad_fetch = mysqli_fetch_assoc($admin_exist);
+                if(!password_verify($frm_data['password'],$ad_fetch['password'])){
+                    alert("error", "Incorrect Password!");
+                }else{
+                    session_start();
+                    $_SESSION['adminLogin'] = true;
+                    $_SESSION['adminId'] = $ad_fetch['id'];
+                    redirect('dashboard.php');
+                }
             }
+
         }
 
     ?>

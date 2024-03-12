@@ -63,7 +63,7 @@ edit_service_form.addEventListener('submit', function(e){
     e.preventDefault();
     submit_edit_services();
 });
-// pending
+
 function submit_edit_services(){
     let data = new FormData();
     data.append('edit_service', '');
@@ -107,95 +107,95 @@ function toggle_status(id,val){
     xhr.send('toggle_status='+id+'&value='+val);
 }
 
-// let add_image_form = document.getElementById('add_image_form');
-// add_image_form.addEventListener('submit', function(e){
-//     e.preventDefault();
-//     add_image();
-// });
+let add_image_form = document.getElementById('add_image_form');
+add_image_form.addEventListener('submit', function(e){
+    e.preventDefault();
+    add_image();
+});
 
-// function add_image()
-// {
-//     let data = new FormData();
-//     data.append('image',add_image_form.elements['image'].files[0]);
-//     data.append('service_id',add_image_form.elements['service_id'].value);
-//     data.append('add_image', '');
+function add_image()
+{
+    let data = new FormData();
+    data.append('image',add_image_form.elements['image'].files[0]);
+    data.append('service_id',add_image_form.elements['service_id'].value);
+    data.append('add_image', '');
 
-//     let xhr = new XMLHttpRequest();
-//     xhr.open("POST", "ajax/services.php", true);
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "ajax/services.php", true);
 
-//     xhr.onload = function(){
+    xhr.onload = function(){
 
-//         if(this.responseText == 'inv_img'){
-//             alert ('error', 'Only JPG, WEBP and PNG files are allowed!','image-alert');
-//         }else if(this.responseText == 'inv_size'){
-//             alert ('error', 'The file exceeded the required 2mb','image-alert');
-//         }else if(this.responseText == 'upd_failed'){
-//             alert ('error', 'Upload failed. Server Down!','image-alert');
-//         }else{
-//             alert('success', 'New image added!','image-alert');
-//             add_image_form.reset();
-//             room_images(add_image_form.elements['service_id'].value,document.querySelector("#service-image .modal-title").innerText);
-//         }
-//     }
-//     xhr.send(data);
-// }
+        if(this.responseText == 'inv_img'){
+            alert ('error', 'Only JPG, WEBP and PNG files are allowed!','image-alert');
+        }else if(this.responseText == 'inv_size'){
+            alert ('error', 'The file exceeded the required 2mb','image-alert');
+        }else if(this.responseText == 'upd_failed'){
+            alert ('error', 'Upload failed. Server Down!','image-alert');
+        }else{
+            alert('success', 'New image added!','image-alert');
+            add_image_form.reset();
+            service_images(add_image_form.elements['service_id'].value,document.querySelector("#service-image .modal-title").innerText);
+        }
+    }
+    xhr.send(data);
+}
 
-// function room_images(id,rname){
-//     document.querySelector("#service-image .modal-title").innerText = rname;
-//     add_image_form.elements['service_id'].value = id;
-//     add_image_form.elements['image'].value = '';
+function service_images(id,rname){
+    document.querySelector("#service-image .modal-title").innerText = rname;
+    add_image_form.elements['service_id'].value = id;
+    add_image_form.elements['image'].value = '';
 
-//     let xhr = new XMLHttpRequest();
-//     xhr.open("POST", "ajax/services.php", true);
-//     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "ajax/services.php", true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-//     xhr.onload = function(){
-//         document.getElementById('service-image-data').innerHTML = this.responseText;
-//     }
-//     xhr.send('get_room_images='+id);
-// }
-// function rem_image(img_id,room_id){
-//     let data = new FormData();
-//     data.append('image_id',img_id);
-//     data.append('room_id',room_id);
-//     data.append('rem_image', '');
+    xhr.onload = function(){
+        document.getElementById('service-image-data').innerHTML = this.responseText;
+    }
+    xhr.send('get_service_images='+id);
+}
+function rem_image(img_id,service_id){
+    let data = new FormData();
+    data.append('image_id',img_id);
+    data.append('service_id',service_id);
+    data.append('rem_image', '');
 
-//     let xhr = new XMLHttpRequest();
-//     xhr.open("POST", "ajax/rooms.php", true);
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "ajax/services.php", true);
 
-//     xhr.onload = function(){
+    xhr.onload = function(){
 
-//         if(this.responseText == 1){
-//             alert('success', 'Image Removed!','image-alert');
-//             room_images(room_id,document.querySelector("#room-image .modal-title").innerText);
-//         }else{
-//             alert ('error', 'Image Removal Failed!','image-alert');
-//         }
-//     }
-//     xhr.send(data);
-// }
-// function thumb_image(img_id,room_id){
-//     let data = new FormData();
-//     data.append('image_id',img_id);
-//     data.append('room_id',room_id);
-//     data.append('thumb_image', '');
+        if(this.responseText == 1){
+            alert('success', 'Image Removed!','image-alert');
+            service_images(room_id,document.querySelector("#service-image .modal-title").innerText);
+        }else{
+            alert ('error', 'Image Removal Failed!','image-alert');
+        }
+    }
+    xhr.send(data);
+}
+function thumb_image(img_id,service_id){
+    let data = new FormData();
+    data.append('image_id',img_id);
+    data.append('service_id',service_id);
+    data.append('thumb_image', '');
 
-//     let xhr = new XMLHttpRequest();
-//     xhr.open("POST", "ajax/rooms.php", true);
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "ajax/services.php", true);
 
-//     xhr.onload = function(){
+    xhr.onload = function(){
 
-//         if(this.responseText == 1){
-//             alert('success', 'Image Thumbnail Changed!','image-alert');
-//             room_images(room_id,document.querySelector("#room-image .modal-title").innerText);
-//         }else{
-//             alert ('error', 'Thumbnail Update Failed!','image-alert');
-//         }
-//     }
-//     xhr.send(data);
-// }
+        if(this.responseText == 1){
+            alert('success', 'Image Thumbnail Changed!','image-alert');
+            service_images(room_id,document.querySelector("#service-image .modal-title").innerText);
+        }else{
+            alert ('error', 'Thumbnail Update Failed!','image-alert');
+        }
+    }
+    xhr.send(data);
+}
 function remove_service(service_id){
-    if(confirm("Are you sure, you want to delete this room?")){
+    if(confirm("Are you sure, you want to delete this service?")){
         let data = new FormData();
         data.append('service_id',service_id);
         data.append('remove_service', '');
