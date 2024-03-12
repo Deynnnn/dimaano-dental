@@ -135,7 +135,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb4">
+                    <div class="col-md-3 mb-4">
                         <div class="card text-center text-success p-3">
                             <h6>Active Appointments</h6>
                             <h1 class="mt-2 mb-0" id="active_bookings">0</h1>
@@ -143,7 +143,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb4">
+                    <div class="col-md-3 mb-4">
                         <div class="card text-center text-danger p-3">
                             <h6>Cancelled Appointments</h6>
                             <h1 class="mt-2 mb-0" id="cancelled_bookings">0</h1>
@@ -172,14 +172,14 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb4">
+                    <div class="col-md-3 mb-4">
                         <div class="card text-center text-primary p-3">
                             <h6>Quiries</h6>
                             <h1 class="mt-2 mb-0" id="total_queries">0</h1>
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb4">
+                    <div class="col-md-3 mb-4">
                         <div class="card text-center text-primary p-3">
                             <h6>Reviews</h6>
                             <h1 class="mt-2 mb-0" id="total_reviews">0</h1>
@@ -203,7 +203,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb4">
+                    <div class="col-md-3 mb-4">
                         <div class="card text-center text-success p-3">
                             <h6>ACTIVE PATIENTS</h6>
                             <h1 class="mt-2 mb-0">
@@ -214,7 +214,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb4">
+                    <div class="col-md-3 mb-4">
                         <div class="card text-center text-warning p-3">
                             <h6>INACTIVE PATIENTS</h6>
                             <h1 class="mt-2 mb-0">
@@ -225,7 +225,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 mb4">
+                    <div class="col-md-3 mb-4">
                         <div class="card text-center text-danger p-3">
                             <h6>UNVERIFIED PATIENTS</h6>
                             <h1 class="mt-2 mb-0">

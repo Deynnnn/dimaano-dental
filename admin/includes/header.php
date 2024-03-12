@@ -1,6 +1,6 @@
 <div class="container-fluid text-light p-3 d-flex align-items-center justify-content-between sticky-top" style="background-color: rgb(165,16,18);">
     <h3 class="mb-0">DentalPal - ADMIN DASHBOARD</h3>
-    <a href="logout.php" class="btn btn-light btn-sm">LOG OUT</a>
+    <a href="logout.php" class="btn btn-outline-light btn-sm">LOG OUT</a>
 </div>
 
 <div class="col-lg-2" id="dashboard-menu" style="background-color: rgb(165,16,18);">
@@ -33,17 +33,17 @@
                         <div class="collapse show px-3 small mb-1" id="bookingLinks">
                             <ul class="nav nav-pills flex-column rounded border border-secondary">
                                 <li class="nav-item">
-                                    <a class="nav-link text-white d-flex align-items-center" href="new_bookings.php">
+                                    <a class="nav-link text-white d-flex align-items-center" href="new_appointments.php">
                                         New Appointments
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white d-flex align-items-center" href="refund_bookings.php">
+                                    <a class="nav-link text-white d-flex align-items-center" href="refund_appointments.php">
                                         Refund Appointments
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white d-flex align-items-center" href="booking_records.php">
+                                    <a class="nav-link text-white d-flex align-items-center" href="appointment_records.php">
                                         Appointment Records
                                     </a>
                                 </li>

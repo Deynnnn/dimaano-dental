@@ -1,6 +1,4 @@
-- ayus na login / register
-- ayus na din shutdown feature settings
-- ayus na update ng patient profile
-- ayus na setting ng appointment
-- palitan ang phone_num column sa patients table to conNum
-- check lagi ang SITE_URL sa admin/include/essentials
+- fully functioning na ang services page sa admin all buttons
+- palitan ang datentime column sa services_image at palitan and table name from service_image to services_image
+- fully dynamic na din and admin dashboard
+- admin password update sa setting okay na

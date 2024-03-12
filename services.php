@@ -78,7 +78,7 @@
 
                 // get service thumbnail
                 $service_thumb = SERVICES_IMG_PATH."banner.png";
-                $thumb_q = mysqli_query($con,"SELECT * FROM `service_image` 
+                $thumb_q = mysqli_query($con,"SELECT * FROM `service_images` 
                     WHERE `service_id`='$service_data[id]' 
                     AND `thumb`='1'");
                 if(mysqli_num_rows($thumb_q)>0){
