@@ -20,9 +20,9 @@
 
     if($setting_r['shutdown']){
         echo<<<alertbar
-        <div class="bg-danger text-center p2 fw-bold">
-        <i class="bi bi-exclamation-triangle-fill"></i>
-            Appointments are temporarily closed!
+        <div class="bg-danger text-center p2 fw-bold text-light">
+            <i class="bi bi-info-circle-fill"></i>
+            The Doctor is out, Appointments are temporarily closed!
         </div>
         alertbar;
     }

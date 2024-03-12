@@ -135,7 +135,7 @@
                             <div class="card-body">
                                 <div class="d-flex align-content-center justify-content-between mb-2">
                                     <h3 class="display-6 lh-1 fw-bold">$service_data[name]</h3>
-                                    <h6 class="mb-4 fw-medium">₱$service_data[price]</h6>
+                                    <h6 class="mb-4 fw-medium">₱$formatedPrice</h6>
                                 </div>
                                 <p class="card-text">$truncatedData...</p>
                                 $rating_data

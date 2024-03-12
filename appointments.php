@@ -58,6 +58,7 @@
                 <h1>New Appointments</h1>
             </div>
             <?php
+                // pagination not working properly
                 $start = 0;
                 $limit = 6;
                 $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE ao.appointment_status='Pending' AND ao.patient_id = ? ORDER BY ao.id DESC LIMIT $start, $limit";
@@ -78,6 +79,9 @@
                     $date = date('m-d-Y', strtotime($data['date']));
                     $time = date('h:m:s a', strtotime($data['time']));
 
+                    $price = $data['total_pay'];
+                    $formatedPrice = number_format($price,2,'.',',');
+
                     echo<<<appointments
                         <div class='col-md-4 px-4 mb-4'>
                             <div class='p-3 rounded shadow-sm' style="background-color: rgba(255, 99, 132, 0.2);border: 2px solid rgb(255, 99, 132);">
@@ -85,7 +89,7 @@
                                     <b>Order ID: </b>$data[order_id]
                                 </p>
                                 <h5 class='fw-bold'>$data[service_name]</h5>
-                                <p>₱$data[price]</p>
+                                <p>₱$formatedPrice</p>
                                 <p class='badge text-dark' style="background-color: rgba(255, 99, 132, 0.4);">
                                     <b>Prefered Date: </b>$date
                                 </p>
@@ -93,7 +97,7 @@
                                     <b>Prefered Time: </b>$time
                                 </p>
                                 <p>
-                                    <b>Amount: </b>$data[total_pay] <br>
+                                    <b>Amount: </b>$formatedPrice<br>
                                     <b>Date: </b> $created_at
                                 </p>
                                 <p>
