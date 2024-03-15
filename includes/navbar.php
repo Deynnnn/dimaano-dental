@@ -29,7 +29,7 @@
                             <div class="btn-group">
                                 <button type="button" class="btn btn-outline-dark shadow_none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                     <i class="bi bi-person-badge-fill fs-5"></i>
-                                    $_SESSION[uName]
+                                    $_SESSION[uFName] $_SESSION[uLName]
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-lg-end">
                                     <li><a class="dropdown-item" href="profile.php">Profile</a></li>
@@ -124,50 +124,76 @@
             <form id="register-form">
                 <div class="modal-header">
                     <h5 class="modal-title d-flex align-items-center">
-                        <i class="bi bi-person-add fs-3 me-2"></i>User Registration
+                        <i class="bi bi-person-add fs-3 me-2"></i>Patient Registration
                     </h5>
                     <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <span class="badge dimaano-bg text-light mb-3 text-wrap lh-base">
-                        Note: Fill out all fields with your valid personal information
-                    </span>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-6 mb-3 ps-0">
-                                <label class="form-label">Name</label>
-                                <input type="text" name="name" class="form-control shadow-none" placeholder="Enter your fullname" required>
+                            <div class="col-md-6 col-sm-12 form-floating mb-3 ps-0">
+                                <input type="text" name="first_name" class="form-control shadow-none" id="fnameInput" placeholder="name@example.com" required>
+                                <label for="fnameInput">First Name</label>
                             </div>
-                            <div class="col-md-6 mb-3 p-0">
-                                <label class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control shadow-none" placeholder="Enter your valid email" required>
+                            <div class="col-md-6 col-sm-12 form-floating mb-3 ps-0">
+                                <input type="text" name="last_name" class="form-control shadow-none" id="lnameInput" placeholder="name@example.com" required>
+                                <label for="lnameInput">Last Name</label>
                             </div>
-                            <div class="col-md-12 mb-3 p-0">
-                                <label class="form-label">Address</label>
-                                <textarea name="address" class="form-control shadow-none" rows="1" required></textarea>
+                            <div class="mb-3 form-floating col-md-12 ps-0"> 
+                                <input type="email" name="email" class="form-control shadow-none" id="emailInput" placeholder="name@example.com" required>
+                                <label for="emailInput">Email</label>
                             </div>
-                            <div class="col-md-6 mb-3 ps-0">
-                                <label class="form-label">Contact Number</label>
-                                <input type="number" name="conNum" class="form-control shadow-none" placeholder="(e.g 0951******6)" required>
+                            <div class="col-md-12 form-floating mb-3 ps-0">
+                                <textarea name="address" class="form-control shadow-none" id="addressInput" placeholder="name@example.com" required></textarea>
+                                <label for="addressInput">Address</label>
                             </div>
-                            <div class="col-md-6 mb-3 p-0">
-                                <label class="form-label">Date of Birth</label>
-                                <input type="date" name="birthday" class="form-control shadow-none" placeholder="" required>
+                            <div class="col-md-6 col-sm-12 form-floating mb-3 ps-0">
+                                <input type="number" name="conNum" class="form-control shadow-none" id="conNumInput" placeholder="name@example.com" required>
+                                <label for="conNumInput">Contact Number</label>
                             </div>
-                            <div class="col-md-6 mb-3 ps-0">
-                                <label class="form-label">Password</label>
-                                <input type="password" name="password" class="form-control shadow-none" placeholder="Create Password" required>
+                            <div class="col-md-6 col-sm-12 form-floating mb-3 ps-0">
+                                <input type="date" name="birthday" class="form-control shadow-none" id="dobInput" placeholder="name@example.com" required>
+                                <label for="dobInput">Date of Birth</label>
                             </div>
-                            <div class="col-md-6 mb-3 p-0">
-                                <label class="form-label">Confirm Password</label>
-                                <input type="password" name="cPassword" class="form-control shadow-none" placeholder="Confirm Password" required>
+                            <div class="mb-3 form-floating col-md-6 col-sm-12 ps-0"> 
+                                <input type="password" name="password" class="form-control shadow-none" id="passwordInput" placeholder="password" required>
+                                <label for="passwordInput">Create Password</label>
+                            </div>
+                            <div class="mb-3 form-floating col-md-6 col-sm-12 ps-0"> 
+                                <input type="password" name="cPassword" class="form-control shadow-none" id="cpasswordInput" placeholder="password" required>
+                                <label for="cpasswordInput">Confirm Password</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input shadow-none" type="checkbox" value="remember-me" id="flexCheckDefault" required>
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    I Agree to <a class="text-decoration-none fw-medium" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dataprivacyModal">Data Privacy Policy</a>
+                                </label>
                             </div>
                         </div>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-dark shadow-none">REGISTER</button>
+                        <button class="btn custom-bg shadow-none text-light fw-medium">REGISTER</button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
+</div>
+
+<!-- Data Privacy Modal -->
+<div class="modal fade" id="dataprivacyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-shield-lock-fill"></i> Data Privacy Policy</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="">In compliance with the <b>Data Privacy Act (DPA) of 2012</b>, and its <b>Implementing Rules and Regulations (IRR)</b> effective since September 8, 2016, I allow The Dimaano Dental Clinic to use the data I provided in this form for the processing of my appointment scheduling in the Clinic and other reports needed by the clinic in relation to its appointment and scheduling processes. Additionally, I give my consent and allow Dimaano Dental Clinic to share my information to the other clinic stakeholders.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
