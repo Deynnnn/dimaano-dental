@@ -122,7 +122,7 @@
         <div class="col-lg-7 col-md-12 px-4">
             <?php
                 $room_thumb = SERVICES_IMG_PATH."banner.png";
-                $thumb_q = mysqli_query($con,"SELECT * FROM `service_image` 
+                $thumb_q = mysqli_query($con,"SELECT * FROM `service_images` 
                     WHERE `service_id`='$room_data[id]' 
                     AND `thumb`='1'");
                 if(mysqli_num_rows($thumb_q)>0){
