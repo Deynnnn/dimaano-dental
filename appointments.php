@@ -60,17 +60,23 @@
             <?php
                 // pagination not working properly
                 $start = 0;
-                $limit = 6;
-                $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE ao.appointment_status='Pending' AND ao.patient_id = ? ORDER BY ao.id DESC LIMIT $start, $limit";
-                $res = select($query, [$_SESSION['uId']], 'i');
-                // $pagination = $con->query('SELECT * FROM `appointment_order` WHERE `appointment_status` = "Pending" ');
-                $num_of_rows = $res->num_rows;
+                $limit = 3;
+
+                $records = $con->query("SELECT * FROM `appointment_order` WHERE `patient_id` = $_SESSION[uId]");
+
+                $num_of_rows = $records->num_rows;
                 $pages = ceil($num_of_rows / $limit);
 
                 if(isset($_GET['page-nr'])){
                     $page = $_GET['page-nr'] - 1;
                     $start = $page * $limit;
                 }
+
+                $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE ao.appointment_status='Pending' AND ao.patient_id = ? ORDER BY ao.id DESC LIMIT $start, $limit";
+                $res = select($query, [$_SESSION['uId']], 'i');
+                // $pagination = $con->query('SELECT * FROM `appointment_order` WHERE `appointment_status` = "Pending" ');
+                
+
 
                 
 
@@ -97,12 +103,17 @@
                                     <b>Prefered Time: </b>$time
                                 </p>
                                 <p>
-                                    <b>Amount: </b>$formatedPrice<br>
+                                    <b>Amount: </b>₱$formatedPrice<br>
                                     <b>Date: </b> $created_at
                                 </p>
-                                <p>
-                                    <span class='badge bg-warning fs-6'>$data[appointment_status]</span>
-                                </p>
+                                <div class="container">
+                                    <div class="row">
+                                            <p class='badge bg-warning text-dark fs-6'>$data[appointment_status]</p>
+                                            <button onclick='cancel_appointment($data[id], "$data[order_id]")' type='button' class='btn btn-outline-danger btn-sm shadow-none'>
+                                                Cancel Appointment
+                                            </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     appointments;
@@ -111,62 +122,62 @@
 
 
             ?>
-        </div>
-        <div class="">
-            <div class="page-info ms-2 fw-light">
-                <?php
-                    if(!isset($_GET['page-nr'])){
-                        $page = 1;
-                    }else{
-                        $page = $_GET['page-nr'];
-                    }
-                ?>
-                Showing <?php echo $page?> of <?php echo $pages?> pages
-            </div>
-            <div class="pagination">
-                <a href="?page-nr=1" class="text-decoration-none btn btn-outline-primary mx-1">First</a>
-                <?php
-                    if(isset($_GET['page-nr']) && $_GET['page-nr'] > 1){
-                ?>
-                    <a href="?page-nr=<?php echo $_GET['page-nr'] - 1?>"  class="text-decoration-none btn btn-outline-primary mx-1">Previous</a>
-                <?php
-                    }else{
-                        ?>
-                        <a  class="text-decoration-none btn btn-outline-primary mx-2 disabled">Previous</a>
-                <?php
-                    }
-                ?>
-    
-                <div class="page-numbers">
+            <div class="">
+                <div class="page-info ms-2 fw-light">
                     <?php
-                        for($counter = 1; $counter <= $pages; $counter++){
-                    ?>
-                        <a href="?page-nr=<?php echo $counter?>" class="text-decoration-none btn btn-outline-primary mx-1"><?php echo $counter?></a>
-                    <?php
-                    }
-                    ?>
-                </div>
-                <?php
-                    if(!isset($_GET['page-nr'])){
-                ?>
-                    <a href="?page-nr=2" class="text-decoration-none btn btn-outline-primary mx-1">Next</a>
-    
-                <?php
-                    }else{
-                        if($_GET['page-nr'] >= $pages){
-                            ?>
-                            <a class="text-decoration-none btn btn-outline-primary mx-1 disabled">Next</a>
-                <?php
+                        if(!isset($_GET['page-nr'])){
+                            $page = 1;
                         }else{
-                ?>
-                        <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>" class="text-decoration-none btn btn-outline-primary mx-1">Next</a>
-                    <?php    
-                    }
-                ?>
-                <?php
-                    }
-                ?>
-                <a href="?page-nr=<?php echo $pages ?>" class="text-decoration-none btn btn-outline-primary mx-1">Last</a>
+                            $page = $_GET['page-nr'];
+                        }
+                    ?>
+                    Showing <?php echo $page?> of <?php echo $pages?> pages
+                </div>
+                <div class="pagination">
+                    <a href="?page-nr=1" class="text-decoration-none btn btn-outline-primary mx-1">First</a>
+                    <?php
+                        if(isset($_GET['page-nr']) && $_GET['page-nr'] > 1){
+                    ?>
+                        <a href="?page-nr=<?php echo $_GET['page-nr'] - 1?>"  class="text-decoration-none btn btn-outline-primary mx-1">Previous</a>
+                    <?php
+                        }else{
+                            ?>
+                            <a  class="text-decoration-none btn btn-outline-primary mx-2 disabled">Previous</a>
+                    <?php
+                        }
+                    ?>
+        
+                    <div class="page-numbers">
+                        <?php
+                            for($counter = 1; $counter <= $pages; $counter++){
+                        ?>
+                            <a href="?page-nr=<?php echo $counter?>" class="text-decoration-none btn btn-outline-primary mx-1"><?php echo $counter?></a>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                    <?php
+                        if(!isset($_GET['page-nr'])){
+                    ?>
+                        <a href="?page-nr=2" class="text-decoration-none btn btn-outline-primary mx-1">Next</a>
+        
+                    <?php
+                        }else{
+                            if($_GET['page-nr'] >= $pages){
+                                ?>
+                                <a class="text-decoration-none btn btn-outline-primary mx-1 disabled">Next</a>
+                    <?php
+                            }else{
+                    ?>
+                            <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>" class="text-decoration-none btn btn-outline-primary mx-1">Next</a>
+                        <?php    
+                        }
+                    ?>
+                    <?php
+                        }
+                    ?>
+                    <a href="?page-nr=<?php echo $pages ?>" class="text-decoration-none btn btn-outline-primary mx-1">Last</a>
+                </div>
             </div>
         </div>
     </div>
@@ -179,23 +190,27 @@
         let bodyId =parseInt(document.body.id) - 1;
         links[bodyId].classList.add("actived");
 
-        // function cancel_booking(id){
-        //     if(confirm('Are you SURE to CANCEL booking? Only 80% of your payment will be REFUNDED!')){
-        //         let xhr = new XMLHttpRequest();
-        //         xhr.open("POST", "ajax/cancel_booking.php", true);
-        //         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        function cancel_appointment(id, order_id){
+            if(confirm('Are you SURE to CANCEL appointment? Only 80% of your payment will be REFUNDED!')){
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "ajax/appointments.php", true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        //         xhr.onload = function(){
-        //             if(this.responseText==1){
-        //                 window.location.href="bookings.php?cancel_status=true";
-        //             }else{
-        //                 alert('error', 'Cancellation Failed')
-        //             }
-        //         }
+                xhr.onload = function(){
+                    if(this.responseText==1){
+                        window.location.href="appointments.php?cancel_status=true";
+                        alert('success', 'Appointment Cancelled.');
+                    }else if(this.responseText == 'mail_failed'){
+                        alert('error', 'Email failed to sent.');
+                    }
+                    else{
+                        alert('error', 'Cancellation Failed')
+                    }
+                }
         
-        //         xhr.send('cancel_booking&id='+id);
-        //     }
-        // }
+                xhr.send('cancel_appointment&id='+id+'&order_id='+order_id);
+            }
+        }
 
         // function check_out(b_id, r_id){
         //     if(confirm('Are you about to check out, Confirm to continue.')){

@@ -60,9 +60,9 @@
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
         <?php
             $start = 0;
-            $items_per_page = 3;
+            $items_per_page = 6;
             
-            $records = $con->query("SELECT * FROM `services` WHERE `status`");
+            $records = $con->query("SELECT * FROM `services`");
             
             $num_of_rows = $records->num_rows;
             $pages = ceil($num_of_rows / $items_per_page);

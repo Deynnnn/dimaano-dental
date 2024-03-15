@@ -26,7 +26,7 @@
         <?php require('includes/navbar.php');?>
     </div>
     <div class="my-5 text-center">
-        <img class="d-block mx-auto mb-4" width="250" src="images/logo.png" alt="">
+        <img class="d-block mx-auto img-fluid mb-4 w-95"  src="images/banner.png" alt="">
         <span class="fs-1 fw-bold site-title">About Us</span>
         <h1 class="display-5 fw-bold text-body-emphasis mb-4">Gentle Care, Radiant Smiles</h1>
         <div class="col-lg-6 mx-auto">

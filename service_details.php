@@ -64,7 +64,7 @@
                 <div class="carousel-inner">
                     <?php
                         $room_img = SERVICES_IMG_PATH."banner.png";
-                        $img_q = mysqli_query($con,"SELECT * FROM `service_image` 
+                        $img_q = mysqli_query($con,"SELECT * FROM `service_images` 
                             WHERE `service_id`='$service_data[id]'");
                         if(mysqli_num_rows($img_q)>0){
                             $active_class = 'active';
