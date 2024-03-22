@@ -5,7 +5,8 @@ let register_form = document.getElementById('register-form');
 
         let data = new FormData();
 
-        data.append('name', register_form.elements['name'].value);
+        data.append('first_name', register_form.elements['first_name'].value);
+        data.append('last_name', register_form.elements['last_name'].value);
         data.append('email', register_form.elements['email'].value);
         data.append('conNum', register_form.elements['conNum'].value);
         data.append('address', register_form.elements['address'].value);
@@ -40,7 +41,6 @@ let register_form = document.getElementById('register-form');
         }
         xhr.send(data);
     });
-
     let login_form = document.getElementById('login-form');
 
     login_form.addEventListener('submit', (e) => {

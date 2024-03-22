@@ -1,6 +1,6 @@
 <?php
     //front-end purpose
-    define('SITE_URL', 'http://127.0.0.1/dimaano-dental/');
+    define('SITE_URL', 'http://dimaano-dental.test/');
     define('ABOUT_IMG_PATH',SITE_URL.'images/about/');
     define('SERVICES_IMG_PATH',SITE_URL.'images/services/');
 

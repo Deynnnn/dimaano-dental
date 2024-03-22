@@ -147,7 +147,7 @@
                         }
                     ?>
         
-                    <div class="page-numbers">
+                    <!-- <div class="page-numbers">
                         <?php
                             for($counter = 1; $counter <= $pages; $counter++){
                         ?>
@@ -155,7 +155,7 @@
                         <?php
                         }
                         ?>
-                    </div>
+                    </div> -->
                     <?php
                         if(!isset($_GET['page-nr'])){
                     ?>

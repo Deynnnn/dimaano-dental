@@ -36,7 +36,7 @@
 
         $is_shutdown = mysqli_fetch_assoc(mysqli_query($con,"SELECT `shutdown` FROM `settings`"));
 
-        $current_appointment = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(CASE WHEN appointment_status='Pending' AND rate_review=0 THEN 1 END) AS `new_appointments`,COUNT(CASE WHEN appointment_status='Cancelled' AND refund=0 THEN 1 END) AS `refund_appointments` FROM `appointment_order`"));
+        $current_appointment = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(CASE WHEN appointment_status='Pending' AND rate_review=0 THEN 1 END) AS `new_appointments`,COUNT(CASE WHEN appointment_status='Cancelled' AND refund = 0 THEN 1 END) AS `refund_appointments` FROM `appointment_order`"));
 
         $unread_quiries = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(sr_no) AS `count` FROM `patient_queries` WHERE `seen`=0"));
         $unread_reviews = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(id) AS `count` FROM `rating_review` WHERE `seen`=0"));
@@ -189,7 +189,7 @@
                 </div>
 
                 <!-- users -->
-                <h5>PATIENTS</h5>
+                <h5 class="mb-4">PATIENTS</h5>
                 <div class="row mb-3">
 
                     <div class="col-md-3 mb-4">

@@ -37,7 +37,7 @@
                 <tr class='align-middle'>
                     <td>$i</td>
                     <td>
-                    $row[name]
+                    $row[first_name] $row[last_name]
                     </td>
                     <td>$row[email]</td>
                     <td>$row[conNum]</td>
