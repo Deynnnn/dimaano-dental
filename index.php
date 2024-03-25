@@ -212,7 +212,7 @@
                 alert('error','Incorrect Password, try again!');
             }else{
                 let fileUrl = window.location.href.split('/').pop().split('?').shift();
-                if(fileUrl == 'room_details.php'){
+                if(fileUrl == 'service_details.php'){
                     window.location = window.location.href;
                 }else{
                     window.location = window.location.pathname;

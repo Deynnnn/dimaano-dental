@@ -111,7 +111,7 @@
             <h2 class="fw-bold">CONFIRM APPOINTMENT</h2>
 
             <div style="font-size: 14px;">
-                <a href="rooms.php" class="text-decoration-none text-secondary">
+                <a href="services.php" class="text-decoration-none text-secondary">
                     <i class="bi bi-arrow-left"></i> GO BACK >
                 </a>
                 <a href="#" class="text-decoration-none text-secondary">
