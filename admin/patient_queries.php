@@ -125,13 +125,18 @@
                                                 $seen = "<p href='?seen=$row[sr_no]' class='rounded-pill text-decoration-none text-dark user-select-none'>Read</p>";
                                             }
                                             $seen.="<a href='?del=$row[sr_no]' class='btn btn-sm rounded-pill btn-danger mt-2'>Delete</a>";
+
+                                            $message = $row['message'];
+                                            $maxLength = 200;
+                                            $truncatedData = substr($message, 0, $maxLength);
+
                                             echo<<<query
                                                 <tr>
                                                     <td>$i</td>
                                                     <td>$row[name]</td>
                                                     <td>$row[email]</td>
                                                     <td>$row[subject]</td>
-                                                    <td>$row[message]</td>
+                                                    <td>$truncatedData...</td>
                                                     <td>$row[created_at]</td>
                                                     <td>$seen</td>
                                                 </tr>

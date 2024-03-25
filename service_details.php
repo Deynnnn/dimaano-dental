@@ -30,7 +30,7 @@
     </div>
     <?php
         if(!isset($_GET['id'])){
-            redirect('rooms.php');
+            redirect('services.php');
         }
 
         $data = filteration($_GET);
@@ -157,7 +157,7 @@
                 <div class="review-rating">
                     <h5 class='mb-3'>Reviews & Ratings</h5>
                     <?php
-                        $review_q ="SELECT rr.*,uc.name AS uname, r.name AS rname FROM `rating_review` rr INNER JOIN `patients` uc ON rr.patient_id = uc.id INNER JOIN `services` r ON rr.service_id = r.id WHERE rr.service_id = '$service_data[id]' ORDER BY `id` DESC LIMIT 15";
+                        $review_q ="SELECT rr.*,uc.first_name AS ufname, uc.last_name AS ulname, r.name AS rname FROM `rating_review` rr INNER JOIN `patients` uc ON rr.patient_id = uc.id INNER JOIN `services` r ON rr.service_id = r.id WHERE rr.service_id = '$service_data[id]' ORDER BY `id` DESC LIMIT 15";
                         $review_res = mysqli_query($con,$review_q);
         
                         if(mysqli_num_rows($review_res)==0){
@@ -173,7 +173,7 @@
                                 <div class='mb-4'>
                                     <div class="d-flex align-items-center mb-2">
                                     <img src="$img_path$row[profile]" loading="lazy" class="rounded-circle" width="35px">
-                                    <h6 class="m-0 ms-2">$row[uname]</h6>
+                                    <h6 class="m-0 ms-2">$row[ufname] $row[ulname]</h6>
                                     </div>
                                     <p class='mb-1'>$row[review]</p>
                                     <div>
