@@ -63,7 +63,7 @@
                 <div class="row mb-4">
 
                     <div class="col-md-3 mb-4">
-                        <a href="new_bookings.php" class="text-decoration-none">
+                        <a href="new_appointments.php" class="text-decoration-none">
                             <div class="card text-center text-success p-3">
                                 <h6>New Appointments</h6>
                                 <h1 class="mt-2 mb-0">
@@ -76,7 +76,7 @@
                     </div>
 
                     <div class="col-md-3 mb-4">
-                        <a href="refund_bookings.php" class="text-decoration-none">
+                        <a href="refund_appointments.php" class="text-decoration-none">
                             <div class="card text-center text-warning p-3">
                                 <h6>Refund Appointments</h6>
                                 <h1 class="mt-2 mb-0">
@@ -89,9 +89,9 @@
                     </div>
 
                     <div class="col-md-3 mb-4">
-                        <a href="guest_queries.php" class="text-decoration-none">
+                        <a href="patient_queries.php" class="text-decoration-none">
                             <div class="card text-center text-info p-3">
-                                <h6>Guest Quiries</h6>
+                                <h6>Patient Quiries</h6>
                                 <h1 class="mt-2 mb-0">
                                 <?php
                                     echo $unread_quiries['count']
