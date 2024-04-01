@@ -21,6 +21,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center" href="calendar.php">
+                        <span class="material-symbols-outlined">
+                            grid_view
+                        </span>
+                        Calendar of Appointments
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <button class="btn text-white px-3 w-100 shadow-none text-start d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#bookingLinks">
                             <div class="d-flex align-items-center">
                             <span class="material-symbols-outlined">
