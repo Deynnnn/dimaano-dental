@@ -57,8 +57,12 @@
                         <h5 class="mb-3 fw-bold">Basic Information</h5>
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <label class="form-label">Name</label>
-                                <input type="text" name="name" value="<?php echo $patient_fetch['name']?>" class="form-control shadow-none" required>
+                                <label class="form-label">First Name</label>
+                                <input type="text" name="first_name" value="<?php echo $patient_fetch['first_name']?>" class="form-control shadow-none" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" name="last_name" value="<?php echo $patient_fetch['last_name']?>" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Contact Number</label>
@@ -107,7 +111,8 @@
 
             let data = new FormData();
             data.append('info_form', '');
-            data.append('name',info_form.elements['name'].value);
+            data.append('first_name',info_form.elements['first_name'].value);
+            data.append('last_name',info_form.elements['last_name'].value);
             data.append('conNum',info_form.elements['conNum'].value);
             data.append('address',info_form.elements['address'].value);
             data.append('dob',info_form.elements['dob'].value);

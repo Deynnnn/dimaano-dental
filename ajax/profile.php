@@ -16,11 +16,11 @@
             exit;
         }
 
-        $query = "UPDATE `patients` SET `name`=?, `address`=?, `conNum`=?, `dob`=? WHERE `id`=?";
-        $values = [$frm_data['name'],$frm_data['address'],$frm_data['conNum'],$frm_data['dob'],$_SESSION['uId']];
+        $query = "UPDATE `patients` SET `first_name`=?, `last_name`=?, `address`=?, `conNum`=?, `dob`=? WHERE `id`=?";
+        $values = [$frm_data['first_name'],$frm_data['last_name'],$frm_data['address'],$frm_data['conNum'],$frm_data['dob'],$_SESSION['uId']];
         
-        if(update($query,$values,'sssss')){
-            $_SESSION['uName'] = $frm_data['name'];
+        if(update($query,$values,'ssssss')){
+            $_SESSION['uFName'] = $frm_data['first_name'];
             echo 1;
         }else{
             echo 0;

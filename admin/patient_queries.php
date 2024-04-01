@@ -136,7 +136,7 @@
                                                     <td>$row[name]</td>
                                                     <td>$row[email]</td>
                                                     <td>$row[subject]</td>
-                                                    <td>$truncatedData...</td>
+                                                    <td>$truncatedData</td>
                                                     <td>$row[created_at]</td>
                                                     <td>$seen</td>
                                                 </tr>
