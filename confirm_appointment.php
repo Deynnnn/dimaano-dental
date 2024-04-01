@@ -101,6 +101,7 @@
 
         $user_res =select("SELECT * FROM `patients` WHERE `id`=? LIMIT 1", [$_SESSION['uId']], 'i');
         $user_data = mysqli_fetch_assoc($user_res);
+        // $patient_name = $user_data['first_name'].
 
     ?>
 
@@ -148,7 +149,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-medium">Name</label>
-                                <input type="text" value="<?php echo $user_data['name']?>" name="name" class="form-control shadow-none" required>
+                                <input type="text" value="<?php echo $user_data['first_name']." ".$user_data['last_name']?>" name="name" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-medium">Phone Number</label>

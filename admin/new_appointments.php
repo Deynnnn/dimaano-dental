@@ -45,18 +45,41 @@
             <div class="col-lg-10 ms-auto p-4 overflow-hidden">
                 
                 <div class="card border-0">
-                    <div class="card-body text-center">
-                        <h1 class="mb-4">Coming soon 🚀</h1>
-                        <img src="../images/cs.png" alt="" class="">
+                    <div class="card-body">
+                        <h4 class="mb-4">NEW APPOINTMENTS</h4>
+
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-body">
+                            
+                                <div class="text-end mb-4">
+                                    <input type="text" oninput="get_appointments(this.value)" class="form-control shadow-none w-25 ms-auto" placeholder="Type to SEARCH">
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr class="text-white" style="background-color: rgb(100,20,22);">
+                                            <th scope="col">#</th>
+                                            <th scope="col">Patient Details</th>
+                                            <th scope="col">Service Details</th>
+                                            <th scope="col">Appointment Details</th>
+                                            <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="appointments-data">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
+    
             </div>
         </div>
     </div>
 
 
     <?php require('includes/scripts.php');?>
-    <script src="scripts/dashboard.js"></script>
+    <script src="scripts/new_appointments.js"></script>
 </body>
 </html>
