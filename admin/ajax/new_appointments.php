@@ -312,6 +312,10 @@
                     <button type='button' onclick= cancel_appointment($data[id],'$data[patient_email]','$data[order_id]','$data[date]','$data[time]','$data[phone_num]') class='btn btn-danger shadow-none btn-sm mb-2 mt-2'>
                         CANCEL
                     </button>
+                    <button type='button' onclick=reschedule_date($data[id]) class='btn btn-warning shadow-none btn-sm mb-2 mt-2
+                        ' data-bs-toggle='modal' data-bs-target='#reschedule_date'>
+                        RESCHEDULE
+                    </button>
                     </td>
                 </tr>
             ";

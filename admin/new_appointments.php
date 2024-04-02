@@ -33,6 +33,13 @@
                 margin-top: 60px;
             }
         }
+
+        .reschedule-btn{
+                background-color: rgba(255, 159, 64, 0.2);
+                border: 1px solid rgb(255, 159, 64);
+            }.reschedule-btn:hover{
+                background-color: rgba(255, 159, 64, 0.5);
+                border: 1px solid rgb(255, 159, 64);}
     </style>
 </head>
 <body style="background-color: rgb(248,247,250);">
@@ -64,7 +71,7 @@
                                             <th scope="col">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="appointments-data">
+                                        <tbody id="appointmentData">
                                         </tbody>
                                     </table>
                                 </div>
@@ -77,6 +84,37 @@
         </div>
     </div>
 
+    <div class="modal fade" id="reschedule_date" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Reschedule Appointment</h5>
+                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="border-bottom border-3 mb-3 pb-3">
+                            <form id="reschedule_form">
+                                <h4 class="modal-title">DATE</h4>
+                                <label class="form-label fw-bold">FROM</label>
+                                <input type="date" name="date" class="form-control shadow-none mb-3" disabled>
+                                <label class="form-label fw-bold">TO</label>
+                                <input type="date" id="dateInput" class="form-control shadow-none" name="reschedule_date" required>
+                                <h4 class="modal-title mt-4">TIME</h4>
+                                <label class="form-label fw-bold">FROM</label>
+                                <input type="time" name="time" class="form-control shadow-none mb-3" disabled>
+                                <label class="form-label fw-bold">TO</label>
+                                <input type="time" id="dateInput" min="09:00" max="17:00" class="form-control shadow-none" name="reschedule_time" required>
+                                <button class="btn btn-outline-success shadow-none mt-4">Reschedule</button>
+                                <input type="hidden" name="appointment_id">
+                                <input type="hidden" name="patient_email">
+                                <input type="hidden" name="order_id">
+                                <input type="hidden" name="phone_num">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <?php require('includes/scripts.php');?>
     <script src="scripts/new_appointments.js"></script>
