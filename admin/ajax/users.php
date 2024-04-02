@@ -13,15 +13,14 @@
         while($row = mysqli_fetch_assoc($res)){
 
             $del_btn = "
-            <button type='button' onclick='remove_user($row[id])' class='btn btn-danger shadow-none btn-sm'>
-                <i class='bi bi-trash'></i>
+            <button type='button' onclick='remove_user($row[id])' class='btn btn-outline-secondary shadow-none btn-sm border-0'>
+                <i class='bi bi-eye fs-5'></i>
             </button>";
 
             $verified = "<p style='font-size: 25px;'><i class='bi bi-x-circle-fill text-danger'></i></p>";
             
             if($row['is_verified']){
                 $verified = "<p style='font-size: 25px;'><i class='bi bi-patch-check-fill text-primary'></i></p>";
-                $del_btn = "";
             }
 
             $status = "<button onclick='toggle_status($row[id],0)' class='btn btn-warning btn-sm shadow-none'>active</button>";
@@ -31,7 +30,7 @@
 
             }
 
-            $date = date("m-d-Y : H:m:s",strtotime($row['created_at']));
+            $date = date("m-d-Y",strtotime($row['created_at']));
 
             $data.="
                 <tr class='align-middle'>
@@ -84,25 +83,23 @@
 
         $frm_data = filteration($_POST);
 
-        $query = "SELECT * FROM `patients` WHERE `name` LIKE ?";
-        $res = select($query,["%$frm_data[name]%"],'s');
+        $query = "SELECT * FROM `patients` WHERE `first_name` LIKE ? OR `last_name` LIKE ?";
+        $res = select($query,["%$frm_data[name]%", "%$frm_data[name]%"],'ss');
         $i=1;
-        $path = USERS_IMG_PATH;
 
         $data="";
 
         while($row = mysqli_fetch_assoc($res)){
 
             $del_btn = "
-            <button type='button' onclick='remove_user($row[id])' class='btn btn-danger shadow-none btn-sm'>
-                <i class='bi bi-trash'></i>
+            <button type='button' onclick='remove_user($row[id])' class='btn btn-outline-secondary shadow-none btn-sm'>
+                <i class='bi bi-eye'></i>
             </button>";
 
             $verified = "<p style='font-size: 25px;'><i class='bi bi-x-circle-fill text-danger'></i></p>";
             
             if($row['is_verified']){
                 $verified = "<p style='font-size: 25px;'><i class='bi bi-patch-check-fill text-primary'></i></p>";
-                $del_btn = "";
             }
 
             $status = "<button onclick='toggle_status($row[id],0)' class='btn btn-warning btn-sm shadow-none'>active</button>";
@@ -112,18 +109,18 @@
 
             }
 
-            $date = date("m-d-Y : H:m:s",strtotime($row['created_at']));
+            $date = date("m-d-Y",strtotime($row['created_at']));
 
             $data.="
                 <tr class='align-middle'>
                     <td>$i</td>
                     <td>
-                    $row[name]
+                    $row[first_name] $row[last_name]
                     </td>
                     <td>$row[email]</td>
                     <td>$row[conNum]</td>
                     <td>$row[address]</td>
-                    <td>$row[birthday]</td>
+                    <td>$row[dob]</td>
                     <td>$verified</td>
                     <td>$status</td>
                     <td>$date</td>
