@@ -28,13 +28,45 @@ function accept_appointment(id,patient_email,order_id,date,time,phone_num){
             if(this.responseText == 1){
                 alert('success', 'Appointment Accepted!');
                 get_appointments();
-            }else{
+            }
+            // else if(this.responseText == 'mail_failed'){
+            //     alert('error', 'Email confirmation did not go through!');
+            //     get_appointments();
+            // }
+            else{
                 alert ('error', 'Failed to Accept Appointment! Server Down!');
             }
         }
         xhr.send(data);
     }
 
+}
+
+function cancel_appointment(id,patient_email,order_id,date,time,phone_num){
+    if(confirm("Cancel Appointment?")){
+        let data = new FormData();
+        data.append('id',id);
+        data.append('patient_email',patient_email);
+        data.append('order_id',order_id);
+        data.append('date',date);
+        data.append('time',time);
+        data.append('phone_num',phone_num);
+        data.append('cancel_appointment', '');
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "ajax/new_appointments.php", true);
+
+        xhr.onload = function(){
+            if(this.responseText == 1){
+                alert('success', 'Appointment Cancelled');
+                get_appointments();
+            }else{
+                alert ('error', 'Failed to Cancel Appointment! Server Down!');
+                get_appointments();
+            }
+        }
+        xhr.send(data);
+    }
 }
 window.onload = function(){
     get_appointments();

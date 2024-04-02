@@ -126,6 +126,140 @@
         }
     }
 
+    function decline_mail($email, $type, $ticket, $date, $time, $contact_number){
+        $type = 'decline_information';
+        $page = 'index.php';
+        $subject = 'Dimaano Dental Clinic - Appointment Declined';
+        $content = 'Appointment Declined';
+
+        $mail = new PHPMailer;
+
+        $mail->isSMTP();
+        $mail->Host='host';
+        $mail->Port='port';
+        $mail->SMTPAuth=true;
+        $mail->SMTPSecure='tls';
+
+        $mail->Username='smtp_mail';
+        $mail->Password='smtp_secret';
+
+        $mail->setFrom('smtp_mail', $subject);
+        $mail->addAddress($email);
+
+        $mail->isHTML(true);
+        $mail->Subject= $subject;
+        $mail->Body="<div id='wrapper' style='
+        background-color: #f0f6fb; 
+        font-family: 'Roboto', sans-serif; font-size: 19px;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 3%;'>
+    
+            <header
+            style='
+            width: 98%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            '
+            >
+                <div id='logo'>
+                    <img
+                        src='images/logo.png'
+                        width='100'
+                        style='max-width: 100%'
+                        alt=''
+                    />
+                </div>
+                <div>
+                    <h1>Dimaano Dental Clininc</h1>
+                    <p id='contact' style='
+                    text-align: center;
+                    padding-bottom: 3%;
+                    line-height: 16px;
+                    font-size: 12px;
+                    color: #303840;
+                    '>
+                        Poblaction 2 
+                        Victoria 
+                        5205, Oriental Mindoro 
+                        dimaanoDental@gmail.com
+                    </p>
+                </div>
+            </header>
+            <hr style='height: 1px;
+            background-color: #303840;
+            clear: both;
+            width: 96%;
+            margin: auto;'/>
+    
+            <div style='padding: 15px;'>
+                <p><b>Dear ,</b></p>
+                <br><br>
+                <p style='text-indent: 20px;'>We want to notify you that your dental appointment request, identified by ticket number <b>$ticket</b>, has been declined. However you can make anothet appointment, please click the button below:</p>
+                <a href='" . SITE_URL . "$page' class='btn'
+                style='
+                float: right;
+                margin: 0 2% 4% 0;
+                background-color: rgba(75, 192, 192, 0.2);
+                border: 1px solid rgb(75, 192, 192);
+                color: rgb(75, 192, 192);
+                text-decoration: none;
+                font-weight: 600;
+                padding: 8px 12px;
+                border-radius: 8px;
+                letter-spacing: 3px;
+                '
+                >Book Another</a>
+    
+                <hr style='height: 1px;
+                background-color: #303840;
+                clear: both;
+                width: 96%;
+                margin: auto;'/>
+    
+                <footer>
+                <p style='
+                    text-align: center;
+                    padding-bottom: 3%;
+                    line-height: 16px;
+                    font-size: 12px;
+                    color: #303840;
+                    '>
+                    <i>*This is an automatically generated email* DO NOT REPLY</i>
+                </p>
+                </footer>
+            </div>
+        </div>";
+
+        $ch = curl_init();
+        $parameters = array(
+            'apikey' => 'semaphore_secret', //Your API KEY
+            'number' => $contact_number,
+            'message' => "'We want to notify you that your dental appointment request on Gabito Dental Clinic has been declined due to certain circumstances. Make another appointment at dentcast.000.pe' $ticket",
+            'sendername' => 'SEMAPHORE'
+        );
+        curl_setopt( $ch, CURLOPT_URL,'semaphore_link' );
+        curl_setopt( $ch, CURLOPT_POST, 1 );
+
+        //Send the parameters set above with the request
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $parameters ) );
+
+        // Receive response from server
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        $output = curl_exec( $ch );
+        curl_close ($ch);
+
+        if ($mail->send()) {
+            // echo $output;
+            return 1;
+        } else {
+            return 0;
+        }
+
+        
+    }
+
     if(isset($_POST['get_appointments']))
     {
         $frm_data = filteration($_POST);
@@ -175,6 +309,9 @@
                     <button type='button' onclick= accept_appointment($data[id],'$data[patient_email]','$data[order_id]','$data[date]','$data[time]','$data[phone_num]') class='btn btn-success shadow-none btn-sm mb-2 mt-2'>
                         ACCEPT
                     </button>
+                    <button type='button' onclick= cancel_appointment($data[id],'$data[patient_email]','$data[order_id]','$data[date]','$data[time]','$data[phone_num]') class='btn btn-danger shadow-none btn-sm mb-2 mt-2'>
+                        CANCEL
+                    </button>
                     </td>
                 </tr>
             ";
@@ -198,6 +335,24 @@
         $sched_q = "INSERT INTO `schedule_list` (`title`, `description`, `start_datetime`, `end_datetime`) VALUES (?,?,?,?)";
         $sched_v = [$frm_data['order_id'],'Appointment Accepted',$frm_data['date'],$frm_data['time']];
         $sched_r = insert($sched_q,$sched_v,'ssss');
+
+        if(update($q1,$values,'si')){
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
+
+    if(isset($_POST['cancel_appointment'])){
+        $frm_data = filteration($_POST);
+
+        if (!decline_mail($frm_data['patient_email'], 'appointment_accepted', $frm_data['order_id'], $frm_data['date'], $frm_data['time'], $frm_data['phone_num'])) {
+            echo 'mail_failed';
+            exit;
+        }
+
+        $q1 = "UPDATE `appointment_order` SET `appointment_status`=? WHERE `id`=?";
+        $values = ['Cancelled',$frm_data['id']];
 
         if(update($q1,$values,'si')){
             echo 1;
