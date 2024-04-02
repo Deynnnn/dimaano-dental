@@ -42,12 +42,12 @@
     <div class="container-fluid" id="main-content">
     <div class="row">
         <div class="col-lg-10 ms-auto p-4 overflow-hidden">
-            <h4 class="mb-4">PATIENTS</h4>
 
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body">
                 
-                    <div class="text-end mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="m-0">PATIENTS</h4>
                         <input type="text" oninput="search_user(this.value)" class="form-control shadow-none w-25 ms-auto" placeholder="Type to SEARCH">
                     </div>
                     <div class="table-responsive">
