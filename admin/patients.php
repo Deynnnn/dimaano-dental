@@ -35,7 +35,7 @@
         }
     </style>
 </head>
-<body class="bg-white">
+<body style="background-color: rgb(248,247,250);">
     <?php 
         require('includes/header.php');
     ?>
@@ -43,7 +43,7 @@
     <div class="row">
         <div class="col-lg-10 ms-auto p-4 overflow-hidden">
 
-            <div class="card border-0 shadow-sm mb-4">
+            <div class="card border-0 shadow mb-4">
                 <div class="card-body">
                 
                     <div class="d-flex justify-content-between align-items-center mb-4">

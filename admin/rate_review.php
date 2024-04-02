@@ -35,7 +35,7 @@
         }
     </style>
 </head>
-<body class="bg-white">
+<body style="background-color: rgb(248,247,250);">
     <?php 
         require('includes/header.php');
     ?>

@@ -17,15 +17,15 @@
         $mail = new PHPMailer;
 
         $mail->isSMTP();
-        $mail->Host='smtp.gmail.com';
-        $mail->Port=587;
+        $mail->Host='host';
+        $mail->Port='port';
         $mail->SMTPAuth=true;
         $mail->SMTPSecure='tls';
 
-        $mail->Username='deyndeyn727@gmail.com';
-        $mail->Password='zwkkjcfbacijseku';
+        $mail->Username='smtp_mail';
+        $mail->Password='smtp_secret';
 
-        $mail->setFrom('deyndeyn727@gmail.com', $subject);
+        $mail->setFrom('smtp_mail', $subject);
         $mail->addAddress($email);
 
         $mail->isHTML(true);
@@ -102,12 +102,12 @@
 
         $ch = curl_init();
         $parameters = array(
-            'apikey' => '4cfb842bbb619d7b04aa93cfd5e84d09', //Your API KEY
+            'apikey' => 'Your API KEY', //Your API KEY
             'number' => $contact_number,
             'message' => "We want to notify you that your dental appointment on Dimaano Dental Clinic request has been accepted. Settle your payment visit our website for instructions. Manage appointment using your email and appointment number:  $ticket",
             'sendername' => 'SEMAPHORE'
         );
-        curl_setopt( $ch, CURLOPT_URL,'https://semaphore.co/api/v4/messages' );
+        curl_setopt( $ch, CURLOPT_URL,'semaphorelink' );
         curl_setopt( $ch, CURLOPT_POST, 1 );
 
         //Send the parameters set above with the request

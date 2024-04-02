@@ -11,7 +11,7 @@
     <script src="../fullcalendar/lib/main.min.js"></script>
     <title>DentaKlyn - Calendar</title>
 </head>
-<body class="bg-light">
+<body style="background-color: rgb(248,247,250);">
     <style>
         :root {
             --bs-success-rgb: 71, 222, 152 !important;

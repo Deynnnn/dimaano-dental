@@ -13,9 +13,7 @@
         while($row = mysqli_fetch_assoc($res)){
 
             $del_btn = "
-            <button type='button' onclick='remove_user($row[id])' class='btn btn-outline-secondary shadow-none btn-sm border-0'>
-                <i class='bi bi-eye fs-5'></i>
-            </button>";
+            <a href='patient_history.php?id=$row[id]' class='btn btn-outline-secondary shadow-none btn-sm border-0'><i class='bi bi-eye fs-5'></i></a>";
 
             $verified = "<p style='font-size: 25px;'><i class='bi bi-x-circle-fill text-danger'></i></p>";
             

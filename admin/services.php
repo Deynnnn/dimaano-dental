@@ -39,19 +39,19 @@
         }
     </style>
 </head>
-<body class="bg-white">
+<body style="background-color: rgb(248,247,250);">
 <?php 
     require('includes/header.php');
 ?>
 <div class="container-fluid" id="main-content">
     <div class="row">
         <div class="col-lg-10 ms-auto p-4 overflow-hidden">
-            <h4 class="mb-4">SERVICES</h4>
-
-            <div class="card border-0 shadow-sm mb-4">
+            
+            <div class="card border-0 shadow mb-4">
                 <div class="card-body">
-                    <div class="text-end mb-4">
-                        <button type="button" class="btn btn-dark shadow-none btn-md" data-bs-toggle="modal" data-bs-target="#add-service"><i class="bi bi-plus-square"></i> Add</button>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="mb-4">SERVICES</h4>
+                        <button type="button" class="btn btn-success shadow-none btn-md" data-bs-toggle="modal" data-bs-target="#add-service"><i class="bi bi-plus-square"></i> Add</button>
                     </div>
                     <div class="table-responsive-lg" style="height: 650px; overflow-y: scroll;">
                         <table class="table table-hover text-center">

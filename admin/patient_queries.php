@@ -64,6 +64,7 @@
             position: fixed;
             top: 80px;
             right: 25px;
+            z-index: 9999;
         }
         #dashboard-menu{
             position: fixed;
@@ -82,21 +83,23 @@
         }
     </style>
 </head>
-<body class="bg-white">
+<body style="background-color: rgb(248,247,250);">
     <?php 
         require('includes/header.php');
     ?>
     <div class="container-fluid" id="main-content">
         <div class="row">
             <div class="col-lg-10 ms-auto p-4 overflow-hidden">
-                <h4 class="mb-4">GUEST MAILS</h4>
-
-                <div class="card border-0 shadow-sm mb-4">
+                
+                <div class="card border-0 shadow mb-4">
                     <div class="card-body">
-
-                    <div class="text-end mb-4">
-                        <a href="?seen=all" class="btn btn-dark text-light rounded-pill shadow-none btn-sm"><i class="bi bi-check-all"></i> Mark all as read</a>
-                        <a href="?del=all" class="btn btn-secondary text-light rounded-pill shadow-none btn-sm"><i class="bi bi-x-circle"></i> Delete all Mails</a>
+                        
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="mb-4">GUEST MAILS</h4>
+                        <div class="">
+                            <a href="?seen=all" class="btn btn-dark text-light rounded-pill shadow-none btn-sm"><i class="bi bi-check-all"></i> Mark all as read</a>
+                            <a href="?del=all" class="btn btn-secondary text-light rounded-pill shadow-none btn-sm"><i class="bi bi-x-circle"></i> Delete all Mails</a>
+                        </div>
                     </div>
                         <div class="table-responsive-md" style="height: 450px; overflow-y: scroll;">
                             <table class="table table-hover">

@@ -35,10 +35,25 @@
         }
     </style>
 </head>
-<body class="bg-white">
+<body style="background-color: rgb(248,247,250);">
     <?php 
         require('includes/header.php');
     ?>
+
+    <div class="container-fluid" id="main-content">
+        <div class="row">
+            <div class="col-lg-10 ms-auto p-4 overflow-hidden">
+                
+                <div class="card border-0">
+                    <div class="card-body text-center">
+                        <h1 class="mb-4">Coming soon 🚀</h1>
+                        <img src="../images/cs.png" alt="" class="">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <?php require('includes/scripts.php');?>
     <script src="scripts/dashboard.js"></script>

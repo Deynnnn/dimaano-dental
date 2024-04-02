@@ -30,7 +30,7 @@
         }
     </style>
 </head>
-<body class="bg-white">
+<body style="background-color: rgb(248,247,250);">
     <?php 
         require('includes/header.php');
 
@@ -64,7 +64,7 @@
 
                     <div class="col-md-3 mb-4">
                         <a href="new_appointments.php" class="text-decoration-none">
-                            <div class="card text-center text-success p-3">
+                            <div class="card text-center border-0 shadow text-success p-3">
                                 <h6>New Appointments</h6>
                                 <h1 class="mt-2 mb-0">
                                     <?php
@@ -77,7 +77,7 @@
 
                     <div class="col-md-3 mb-4">
                         <a href="refund_appointments.php" class="text-decoration-none">
-                            <div class="card text-center text-warning p-3">
+                            <div class="card text-center border-0 shadow text-warning p-3">
                                 <h6>Refund Appointments</h6>
                                 <h1 class="mt-2 mb-0">
                                 <?php
@@ -90,7 +90,7 @@
 
                     <div class="col-md-3 mb-4">
                         <a href="patient_queries.php" class="text-decoration-none">
-                            <div class="card text-center text-info p-3">
+                            <div class="card text-center border-0 shadow text-info p-3">
                                 <h6>Patient Quiries</h6>
                                 <h1 class="mt-2 mb-0">
                                 <?php
@@ -103,7 +103,7 @@
 
                     <div class="col-md-3 mb-4">
                         <a href="rate_review.php" class="text-decoration-none">
-                            <div class="card text-center text-info p-3">
+                            <div class="card text-center border-0 shadow text-info p-3">
                                 <h6>Rating & Review</h6>
                                 <h1 class="mt-2 mb-0">
                                 <?php
@@ -128,7 +128,7 @@
                 <div class="row mb-3">
 
                     <div class="col-md-3 mb-4">
-                        <div class="card text-center text-primary p-3">
+                        <div class="card text-center border-0 shadow text-primary p-3">
                             <h6>Total Appointments</h6>
                             <h1 class="mt-2 mb-0" id="total_bookings">0</h1>
                             <h4 class="mt-2 mb-0" id="total_bookings_amt">₱0</h4>
@@ -136,7 +136,7 @@
                     </div>
 
                     <div class="col-md-3 mb-4">
-                        <div class="card text-center text-success p-3">
+                        <div class="card text-center border-0 shadow text-success p-3">
                             <h6>Active Appointments</h6>
                             <h1 class="mt-2 mb-0" id="active_bookings">0</h1>
                             <h4 class="mt-2 mb-0" id="active_bookings_amt">₱0</h4>
@@ -144,7 +144,7 @@
                     </div>
 
                     <div class="col-md-3 mb-4">
-                        <div class="card text-center text-danger p-3">
+                        <div class="card text-center border-0 shadow text-danger p-3">
                             <h6>Cancelled Appointments</h6>
                             <h1 class="mt-2 mb-0" id="cancelled_bookings">0</h1>
                             <h4 class="mt-2 mb-0" id="cancelled_bookings_amt">₱0</h4>
@@ -166,21 +166,21 @@
                 <div class="row mb-3">
 
                     <div class="col-md-3 mb-4">
-                        <div class="card text-center text-success p-3">
+                        <div class="card text-center border-0 shadow text-success p-3">
                             <h6>New Registration</h6>
                             <h1 class="mt-2 mb-0" id="total_new_reg">0</h1>
                         </div>
                     </div>
 
                     <div class="col-md-3 mb-4">
-                        <div class="card text-center text-primary p-3">
+                        <div class="card text-center border-0 shadow text-primary p-3">
                             <h6>Quiries</h6>
                             <h1 class="mt-2 mb-0" id="total_queries">0</h1>
                         </div>
                     </div>
 
                     <div class="col-md-3 mb-4">
-                        <div class="card text-center text-primary p-3">
+                        <div class="card text-center border-0 shadow text-primary p-3">
                             <h6>Reviews</h6>
                             <h1 class="mt-2 mb-0" id="total_reviews">0</h1>
                         </div>
@@ -193,7 +193,7 @@
                 <div class="row mb-3">
 
                     <div class="col-md-3 mb-4">
-                        <div class="card text-center text-info p-3">
+                        <div class="card text-center border-0 shadow text-info p-3">
                             <h6>TOTAL PATIENTS</h6>
                             <h1 class="mt-2 mb-0">
                             <?php
@@ -204,7 +204,7 @@
                     </div>
 
                     <div class="col-md-3 mb-4">
-                        <div class="card text-center text-success p-3">
+                        <div class="card text-center border-0 shadow text-success p-3">
                             <h6>ACTIVE PATIENTS</h6>
                             <h1 class="mt-2 mb-0">
                                 <?php
@@ -215,7 +215,7 @@
                     </div>
 
                     <div class="col-md-3 mb-4">
-                        <div class="card text-center text-warning p-3">
+                        <div class="card text-center border-0 shadow text-warning p-3">
                             <h6>INACTIVE PATIENTS</h6>
                             <h1 class="mt-2 mb-0">
                             <?php
@@ -226,7 +226,7 @@
                     </div>
 
                     <div class="col-md-3 mb-4">
-                        <div class="card text-center text-danger p-3">
+                        <div class="card text-center border-0 shadow text-danger p-3">
                             <h6>UNVERIFIED PATIENTS</h6>
                             <h1 class="mt-2 mb-0">
                             <?php
