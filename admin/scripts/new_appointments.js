@@ -27,7 +27,7 @@ function accept_appointment(id,patient_email,order_id,date,time,phone_num){
     
             if(this.responseText == 1){
                 alert('success', 'Appointment Accepted!');
-                get_all_appointments();
+                get_appointments();
             }else{
                 alert ('error', 'Failed to Accept Appointment! Server Down!');
             }

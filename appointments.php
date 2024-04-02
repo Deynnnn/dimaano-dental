@@ -62,7 +62,7 @@
                 $start = 0;
                 $limit = 3;
 
-                $records = $con->query("SELECT * FROM `appointment_order` WHERE `patient_id` = $_SESSION[uId]");
+                $records = $con->query("SELECT * FROM `appointment_order` WHERE `patient_id` = $_SESSION[uId] AND `appointment_status`='Pending'");
 
                 $num_of_rows = $records->num_rows;
                 $pages = ceil($num_of_rows / $limit);

@@ -1,7 +1,130 @@
 <?php
     require('../includes/essentials.php');
     require('../includes/dbConfig.php'); 
+    require ("../../includes/Mail/phpmailer/PHPMailerAutoload.php");
     adminLogin();
+    date_default_timezone_set("Asia/Manila");
+
+    function send_mail($email, $type, $ticket, $date, $time, $contact_number){
+        $type = 'appointment_accepted';
+        $page = 'app_portal.php';
+        $subject = 'Dimaano Dental Clinic - Appointment Accepted';
+        $content = 'Appointment Accepted';
+        $status = 'ACCEPTED';
+        
+        
+
+        $mail = new PHPMailer;
+
+        $mail->isSMTP();
+        $mail->Host='smtp.gmail.com';
+        $mail->Port=587;
+        $mail->SMTPAuth=true;
+        $mail->SMTPSecure='tls';
+
+        $mail->Username='deyndeyn727@gmail.com';
+        $mail->Password='zwkkjcfbacijseku';
+
+        $mail->setFrom('deyndeyn727@gmail.com', $subject);
+        $mail->addAddress($email);
+
+        $mail->isHTML(true);
+        $mail->Subject= $subject;
+        $mail->Body="<div id='wrapper' style='
+            background-color: #f0f6fb; 
+            font-family: 'Roboto', sans-serif; font-size: 19px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3%;'>
+    
+            <header
+            style='
+            width: 98%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            '
+            >
+                <div id='logo'>
+                    <img
+                        src='../../images/logo.png'
+                        width='100'
+                        style='max-width: 100%'
+                        alt=''
+                    />
+                </div>
+                <div>
+                    <h1>Dimaano Dental Clininc</h1>
+                    <p id='contact' style='
+                    text-align: center;
+                    padding-bottom: 3%;
+                    line-height: 16px;
+                    font-size: 12px;
+                    color: #303840;
+                    '>
+                        Poblaction 2 
+                        Victoria 
+                        5205, Oriental Mindoro 
+                        dimaanoDental@gmail.com
+                    </p>
+                </div>
+            </header>
+            <hr style='height: 1px;
+            background-color: #303840;
+            clear: both;
+            width: 96%;
+            margin: auto;'/>
+    
+            <div style='padding: 15px;'>
+                <p><b>Dear Patient,</b></p>
+                <br><br>
+                <p style='text-indent: 20px;'>We want to notify you that your dental appointment request, identified by appointment ticket number <b>$ticket</b>, has been $status <b>$date</b> at <b>$time</b>. To see details of your appointment login to you account.</p>
+    
+                <hr style='height: 1px;
+                background-color: #303840;
+                clear: both;
+                width: 96%;
+                margin: auto;'/>
+    
+                <footer>
+                <p style='
+                    text-align: center;
+                    padding-bottom: 3%;
+                    line-height: 16px;
+                    font-size: 12px;
+                    color: #303840;
+                    '>
+                    <i>*This is an automatically generated email * DO NOT REPLY</i>
+                </p>
+                </footer>
+            </div>
+        </div>";
+
+        $ch = curl_init();
+        $parameters = array(
+            'apikey' => '4cfb842bbb619d7b04aa93cfd5e84d09', //Your API KEY
+            'number' => $contact_number,
+            'message' => "We want to notify you that your dental appointment on Dimaano Dental Clinic request has been accepted. Settle your payment visit our website for instructions. Manage appointment using your email and appointment number:  $ticket",
+            'sendername' => 'SEMAPHORE'
+        );
+        curl_setopt( $ch, CURLOPT_URL,'https://semaphore.co/api/v4/messages' );
+        curl_setopt( $ch, CURLOPT_POST, 1 );
+
+        //Send the parameters set above with the request
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $parameters ) );
+
+        // Receive response from server
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        $output = curl_exec( $ch );
+        curl_close ($ch);
+
+        if ($mail->send()) {
+            return 1;
+            echo $output;
+        } else {
+            return 0;
+        }
+    }
 
     if(isset($_POST['get_appointments']))
     {
@@ -14,7 +137,7 @@
         $table_data = "";
         // $data = mysqli_fetch_assoc($res);
         if(mysqli_num_rows($res)==0){
-            echo"<b>No Data Found</b>";
+            echo"<b>No Data Found!</b>";
             exit;
         }
         // $status_bg ='';
@@ -24,7 +147,7 @@
         //     $status_bg = "bg-warning";
         // }
         while($data = mysqli_fetch_assoc($res)){
-            $date = date("d-m-Y", strtotime($data['created_at']));
+            $date = date("d-m-Y", strtotime($data['date']));
             $table_data .="
                 <tr>
                     <td>$i</td>
@@ -64,10 +187,10 @@
     if(isset($_POST['accept_appointment'])){
         $frm_data = filteration($_POST);
 
-        // if (!send_mail($frm_data['email'], 'appointment_accepted', $frm_data['appointment_ticket'], $frm_data['date'], $frm_data['time'], $frm_data['contact_number'])) {
-        //     echo 'mail_failed';
-        //     exit;
-        // }
+        if (!send_mail($frm_data['patient_email'], 'appointment_accepted', $frm_data['order_id'], $frm_data['date'], $frm_data['time'], $frm_data['phone_num'])) {
+            echo 'mail_failed';
+            exit;
+        }
 
         $q1 = "UPDATE `appointment_order` SET `appointment_status`=? WHERE `id`=?";
         $values = ['Accepted',$frm_data['id']];

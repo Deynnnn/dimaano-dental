@@ -20,14 +20,14 @@
 
         $result = mysqli_fetch_assoc(mysqli_query($con, "SELECT 
 
-                        COUNT(CASE WHEN appointment_status ='Accepted' THEN 1 END) AS `total_bookings`, 
-                        SUM(CASE WHEN appointment_status ='Accepted' THEN `trans_amt` END) AS `total_amt`, 
+                        COUNT(CASE WHEN trans_status ='pending' THEN 1 END) AS `total_bookings`, 
+                        SUM(CASE WHEN trans_status ='pending' THEN `trans_amt` END) AS `total_amt`, 
 
                         COUNT(CASE WHEN appointment_status='Pending' THEN 1 END) AS `active_bookings`,
                         SUM(CASE WHEN appointment_status='Pending' THEN `trans_amt` END) AS `active_amt`,
 
-                        COUNT(CASE WHEN appointment_status = 'Cancelled' AND refund = 1 THEN 1 END) AS `cancelled_bookings`, 
-                        SUM(CASE WHEN appointment_status = 'Cancelled' AND refund = 1 THEN `trans_amt` END) AS `cancelled_amt` FROM `appointment_order` $condition"
+                        COUNT(CASE WHEN appointment_status = 'Cancelled' AND refund = 0 THEN 1 END) AS `cancelled_bookings`, 
+                        SUM(CASE WHEN appointment_status = 'Cancelled' AND refund = 0 THEN `trans_amt` END) AS `cancelled_amt` FROM `appointment_order` $condition"
                     ));
 
         $output = json_encode($result);
