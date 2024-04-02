@@ -16,7 +16,7 @@
                 <a class="nav-link hov" href="about.php">About Us</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link hov" href="services.php">Services</a>
+                <a class="nav-link hov" href="services.php?page-nr=1">Services</a>
                 </li>
                 <!-- <li class="nav-item">
                 <a class="nav-link hov" href="book_appointment.php">Book an Appointment</a>
@@ -33,7 +33,7 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-lg-end">
                                     <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-                                    <li><a class="dropdown-item" href="appointments.php">Appointments</a></li>
+                                    <li><a class="dropdown-item" href="appointments.php?page-nr=1">Appointments</a></li>
                                     <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                                 </ul>
                             </div>
