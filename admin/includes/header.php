@@ -55,14 +55,6 @@
                                         Appointment Records
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white d-flex align-items-center" href="print.php">
-                                        <span class="material-symbols-outlined">
-                                            print
-                                        </span>
-                                        Print
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </li>
