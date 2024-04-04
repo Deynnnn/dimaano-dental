@@ -260,7 +260,7 @@
         
     }
 
-    if(isset($_POST['get_appointments']))
+    if(isset($_POST['get_all_appointments']))
     {
         $frm_data = filteration($_POST);
 
@@ -268,7 +268,7 @@
 
         $res = select($query, ["%$frm_data[search]%","%$frm_data[search]%","%$frm_data[search]%"], 'sss');
         $i = 1;
-        $table_data = "";
+        $data = "";
         // $data = mysqli_fetch_assoc($res);
         if(mysqli_num_rows($res)==0){
             echo"<b>No Data Found!</b>";
@@ -280,39 +280,39 @@
         // }else if($data['booking_status'] == 'pending payment'){
         //     $status_bg = "bg-warning";
         // }
-        while($data = mysqli_fetch_assoc($res)){
-            $date = date("d-m-Y", strtotime($data['date']));
-            $table_data .="
+        while($row = mysqli_fetch_assoc($res)){
+            $date = date("d-m-Y", strtotime($row['date']));
+            $data .="
                 <tr>
                     <td>$i</td>
                     <td>
                         <span class='badge' style='background-color: rgb(165,16,18);'>
-                        Order ID: $data[order_id]
+                        Order ID: $row[order_id]
                         </span>
                         <br>
-                        <b>Name:</b> $data[patient_name]
+                        <b>Name:</b> $row[patient_name]
                         <br>
-                        <b>Phone No:</b> $data[phone_num]
+                        <b>Phone No:</b> $row[phone_num]
                     </td>
                     <td>
-                        <b>Service:</b> $data[service_name]
+                        <b>Service:</b> $row[service_name]
                         <br>
-                        <b>Price:</b>₱$data[price]
+                        <b>Price:</b>₱$row[price]
                         <br>
                     </td>
                     <td>
-                        <b>Paid:</b> ₱$data[total_pay]
+                        <b>Paid:</b> ₱$row[total_pay]
                         <br>
                         <b>Date:</b> $date
                     </td>
                     <td>
-                    <button type='button' onclick= accept_appointment($data[id],'$data[patient_email]','$data[order_id]','$data[date]','$data[time]','$data[phone_num]') class='btn btn-success shadow-none btn-sm mb-2 mt-2'>
+                    <button type='button' onclick= accept_appointment($row[id],'$row[patient_email]','$row[order_id]','$row[date]','$row[time]','$row[phone_num]') class='btn btn-success shadow-none btn-sm mb-2 mt-2'>
                         ACCEPT
                     </button>
-                    <button type='button' onclick= cancel_appointment($data[id],'$data[patient_email]','$data[order_id]','$data[date]','$data[time]','$data[phone_num]') class='btn btn-danger shadow-none btn-sm mb-2 mt-2'>
+                    <button type='button' onclick= cancel_appointment($row[id],'$row[patient_email]','$row[order_id]','$row[date]','$row[time]','$row[phone_num]') class='btn btn-danger shadow-none btn-sm mb-2 mt-2'>
                         CANCEL
                     </button>
-                    <button type='button' onclick=reschedule_date($data[id]) class='btn btn-warning shadow-none btn-sm mb-2 mt-2
+                    <button type='button' onclick=reschedule_date($row[id]) class='btn btn-warning shadow-none btn-sm mb-2 mt-2
                         ' data-bs-toggle='modal' data-bs-target='#reschedule_date'>
                         RESCHEDULE
                     </button>
@@ -321,7 +321,24 @@
             ";
             $i++;
         }
-        echo $table_data;
+        echo $data;
+    }
+
+    if(isset($_POST['get_appointment'])){
+        $frm_data = filteration($_POST);
+        $res1 = select("SELECT appointment_order.*, appointment_details.*
+        FROM appointment_order
+        JOIN appointment_details ON appointment_order.id = appointment_details.appointment_id
+        WHERE appointment_order.id = ?
+        ",[$frm_data['get_appointment']],'i');
+
+        $appointmentData = mysqli_fetch_assoc($res1);
+
+        $data = ["appointmentData" => $appointmentData];
+
+        $data = json_encode($data);
+
+        echo $data;
     }
 
     //done
@@ -359,6 +376,24 @@
         $values = ['Cancelled',$frm_data['id']];
 
         if(update($q1,$values,'si')){
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
+
+    if(isset($_POST['reschedule_date'])){
+        $frm_data = filteration($_POST);
+
+        // if (!resched_mail($frm_data['patient_email'], 'appointment_resheduled', $frm_data['order_id'], $frm_data['reschedule_date'], $frm_data['reschedule_time'], $frm_data['phone_num'])) {
+        //     echo 'mail_failed';
+        //     exit;
+        // }
+
+        $q1 = "UPDATE `appointment_order` SET `date`=?, `time`=?, `appointment_status`=? WHERE `id`=?";
+        $values = [$frm_data['reschedule_date'],$frm_data['reschedule_time'],'Pending',$frm_data['id']];
+
+        if(update($q1,$values,'sssi')){
             echo 1;
         }else{
             echo 0;

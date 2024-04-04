@@ -105,7 +105,7 @@
                                 <label class="form-label fw-bold">TO</label>
                                 <input type="time" id="dateInput" min="09:00" max="17:00" class="form-control shadow-none" name="reschedule_time" required>
                                 <button class="btn btn-outline-success shadow-none mt-4">Reschedule</button>
-                                <input type="hidden" name="appointment_id">
+                                <input type="hidden" name="id">
                                 <input type="hidden" name="patient_email">
                                 <input type="hidden" name="order_id">
                                 <input type="hidden" name="phone_num">
