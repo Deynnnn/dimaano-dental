@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADMIN PANEL - SETTINGS</title>
+    <title>DentalPal - Patients</title>
     <?php require('includes/links.php');?>
     <style>
         .custom-alert{
@@ -47,7 +47,7 @@
                 <div class="card-body">
                 
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 class="m-0">PATIENTS</h4>
+                        <h4 class="m-0">Patients</h4>
                         <input type="text" oninput="search_user(this.value)" class="form-control shadow-none w-25 ms-auto" placeholder="Type to SEARCH">
                     </div>
                     <div class="table-responsive">

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../fullcalendar/lib/main.min.css">
     <script src="../js/jquery-3.6.0.min.js"></script>
     <script src="../fullcalendar/lib/main.min.js"></script>
-    <title>DentaKlyn - Calendar</title>
+    <title>DentalPal - Calendar</title>
 </head>
 <body style="background-color: rgb(248,247,250);">
     <style>
