@@ -62,7 +62,7 @@
                 $start = 0;
                 $limit = 3;
 
-                $records = $con->query("SELECT * FROM `appointment_order` WHERE `patient_id` = $_SESSION[uId] AND `appointment_status`='Pending'");
+                $records = $con->query("SELECT * FROM `appointment_order` WHERE `patient_id` = $_SESSION[uId] AND `appointment_status`='Pending' OR `appointment_status`='New'");
 
                 $num_of_rows = $records->num_rows;
                 $pages = ceil($num_of_rows / $limit);
@@ -72,7 +72,7 @@
                     $start = $page * $limit;
                 }
 
-                $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE ao.appointment_status='Pending' AND ao.patient_id = ? ORDER BY ao.id DESC LIMIT $start, $limit";
+                $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE (ao.appointment_status='New' OR `appointment_status`='Pending') AND ao.patient_id = ? ORDER BY ao.id DESC LIMIT $start, $limit";
                 $res = select($query, [$_SESSION['uId']], 'i');
                 // $pagination = $con->query('SELECT * FROM `appointment_order` WHERE `appointment_status` = "Pending" ');
                 

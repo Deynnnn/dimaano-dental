@@ -264,7 +264,7 @@
     {
         $frm_data = filteration($_POST);
 
-        $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE (ao.order_id LIKE ? OR ad.phone_num LIKE ? OR ad.patient_name LIKE ?) AND ao.appointment_status = 'Pending' ORDER BY ao.id ASC";
+        $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE (ao.order_id LIKE ? OR ad.phone_num LIKE ? OR ad.patient_name LIKE ?) AND ao.appointment_status = 'New' ORDER BY ao.id ASC";
 
         $res = select($query, ["%$frm_data[search]%","%$frm_data[search]%","%$frm_data[search]%"], 'sss');
         $i = 1;
