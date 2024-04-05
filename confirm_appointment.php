@@ -130,12 +130,14 @@
                     $thumb_res = mysqli_fetch_assoc($thumb_q);
                     $room_thumb = SERVICES_IMG_PATH.$thumb_res['image'];
                 }
+                $price = $room_data['price'];
+                $sepPrice = number_format($price, 2, '.', ',');
 
                 echo<<<data
                     <div class="card p-3 shadow-sm rounded">
                         <img src="$room_thumb" class="img-fluid rounded mb-3">
                         <h5>$room_data[name]</h5>
-                        <h6>₱ $room_data[price]</h6>
+                        <h6>₱ $sepPrice</h6>
                     </div>
                 data;
             ?>

@@ -345,10 +345,10 @@
     if(isset($_POST['accept_appointment'])){
         $frm_data = filteration($_POST);
 
-        if (!send_mail($frm_data['patient_email'], 'appointment_accepted', $frm_data['order_id'], $frm_data['date'], $frm_data['time'], $frm_data['phone_num'])) {
-            echo 'mail_failed';
-            exit;
-        }
+        // if (!send_mail($frm_data['patient_email'], 'appointment_accepted', $frm_data['order_id'], $frm_data['date'], $frm_data['time'], $frm_data['phone_num'])) {
+        //     echo 'mail_failed';
+        //     exit;
+        // }
 
         $q1 = "UPDATE `appointment_order` SET `appointment_status`=? WHERE `id`=?";
         $values = ['Accepted',$frm_data['id']];
@@ -367,10 +367,10 @@
     if(isset($_POST['cancel_appointment'])){
         $frm_data = filteration($_POST);
 
-        if (!decline_mail($frm_data['patient_email'], 'appointment_accepted', $frm_data['order_id'], $frm_data['date'], $frm_data['time'], $frm_data['phone_num'])) {
-            echo 'mail_failed';
-            exit;
-        }
+        // if (!decline_mail($frm_data['patient_email'], 'appointment_accepted', $frm_data['order_id'], $frm_data['date'], $frm_data['time'], $frm_data['phone_num'])) {
+        //     echo 'mail_failed';
+        //     exit;
+        // }
 
         $q1 = "UPDATE `appointment_order` SET `appointment_status`=? WHERE `id`=?";
         $values = ['Cancelled',$frm_data['id']];

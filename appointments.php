@@ -198,7 +198,7 @@
 
                 xhr.onload = function(){
                     if(this.responseText==1){
-                        window.location.href="appointments.php?cancel_status=true";
+                        window.location.href="appointments.php?page-nr=1&cancel_status=true";
                         alert('success', 'Appointment Cancelled.');
                     }else if(this.responseText == 'mail_failed'){
                         alert('error', 'Email failed to sent.');

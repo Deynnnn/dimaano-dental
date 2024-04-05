@@ -99,10 +99,10 @@
         $v = ['Cancelled', 0, $frm_data['id'], $_SESSION['uId']];
         $r = update($q, $v, 'siii');
 
-        if(!sendMail($frm_data["order_id"])){
-            echo 'mail_failed';
-            exit;
-        }
+        // if(!sendMail($frm_data["order_id"])){
+        //     echo 'mail_failed';
+        //     exit;
+        // }
 
         if($r){
             echo 1;

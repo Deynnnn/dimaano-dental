@@ -23,12 +23,20 @@
                         COUNT(CASE WHEN trans_status ='pending' THEN 1 END) AS `total_bookings`, 
                         SUM(CASE WHEN trans_status ='pending' THEN `trans_amt` END) AS `total_amt`, 
 
-                        COUNT(CASE WHEN appointment_status='Pending' THEN 1 END) AS `active_bookings`,
-                        SUM(CASE WHEN appointment_status='Pending' THEN `trans_amt` END) AS `active_amt`,
+                        COUNT(CASE WHEN appointment_status='Accepted' AND trans_status='pending' THEN 1 END) AS `active_bookings`,
+                        SUM(CASE WHEN appointment_status='Accepted' AND trans_status='pending' THEN `trans_amt` END) AS `active_amt`,
+
+                        COUNT(CASE WHEN appointment_status='Accepted' AND trans_status='paid' THEN 1 END) AS `past_bookings`,
+                        SUM(CASE WHEN appointment_status='Accepted' AND trans_status='paid' THEN `trans_amt` END) AS `past_amt`,
 
                         COUNT(CASE WHEN appointment_status = 'Cancelled' AND refund = 0 THEN 1 END) AS `cancelled_bookings`, 
                         SUM(CASE WHEN appointment_status = 'Cancelled' AND refund = 0 THEN `trans_amt` END) AS `cancelled_amt` FROM `appointment_order` $condition"
                     ));
+        
+        $result['total_amt'] = number_format($result['total_amt'], 2, '.', ',');
+        $result['active_amt'] = number_format($result['active_amt'], 2, '.', ',');
+        $result['past_amt'] = number_format($result['past_amt'], 2, '.', ',');
+        $result['cancelled_amt'] = number_format($result['cancelled_amt'], 2, '.', ',');
 
         $output = json_encode($result);
 

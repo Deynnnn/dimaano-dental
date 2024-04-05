@@ -10,6 +10,8 @@ function booking_analytics(period=1){
         document.getElementById('total_bookings_amt').textContent = '₱'+data.total_amt;
         document.getElementById('active_bookings').textContent = data.active_bookings;
         document.getElementById('active_bookings_amt').textContent = '₱'+data.active_amt;
+        document.getElementById('past_bookings').textContent = data.past_bookings;
+        document.getElementById('past_bookings_amt').textContent = '₱'+data.past_amt;
         document.getElementById('cancelled_bookings').textContent = data.cancelled_bookings;
         document.getElementById('cancelled_bookings_amt').textContent = '₱'+data.cancelled_amt;
     }

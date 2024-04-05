@@ -36,7 +36,7 @@
 
         $is_shutdown = mysqli_fetch_assoc(mysqli_query($con,"SELECT `shutdown` FROM `settings`"));
 
-        $current_appointment = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(CASE WHEN appointment_status='Pending' AND rate_review=0 THEN 1 END) AS `new_appointments`,COUNT(CASE WHEN appointment_status='Cancelled' AND refund = 0 THEN 1 END) AS `refund_appointments` FROM `appointment_order`"));
+        $current_appointment = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(CASE WHEN appointment_status='New' AND rate_review=0 THEN 1 END) AS `new_appointments`,COUNT(CASE WHEN appointment_status='Cancelled' AND refund = 0 THEN 1 END) AS `refund_appointments` FROM `appointment_order`"));
 
         $unread_quiries = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(sr_no) AS `count` FROM `patient_queries` WHERE `seen`=0"));
         $unread_reviews = mysqli_fetch_assoc(mysqli_query($con, "SELECT COUNT(id) AS `count` FROM `rating_review` WHERE `seen`=0"));
@@ -140,6 +140,14 @@
                             <h6>Active Appointments</h6>
                             <h1 class="mt-2 mb-0" id="active_bookings">0</h1>
                             <h4 class="mt-2 mb-0" id="active_bookings_amt">₱0</h4>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-4">
+                        <div class="card text-center border-0 shadow text-secondary p-3">
+                            <h6>Past Appointments</h6>
+                            <h1 class="mt-2 mb-0" id="past_bookings">0</h1>
+                            <h4 class="mt-2 mb-0" id="past_bookings_amt">₱0</h4>
                         </div>
                     </div>
 
