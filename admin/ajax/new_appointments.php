@@ -391,7 +391,7 @@
         // }
 
         $q1 = "UPDATE `appointment_order` SET `date`=?, `time`=?, `appointment_status`=? WHERE `id`=?";
-        $values = [$frm_data['reschedule_date'],$frm_data['reschedule_time'],'Pending',$frm_data['id']];
+        $values = [$frm_data['reschedule_date'],$frm_data['reschedule_time'],'Rescheduled',$frm_data['id']];
 
         if(update($q1,$values,'sssi')){
             echo 1;

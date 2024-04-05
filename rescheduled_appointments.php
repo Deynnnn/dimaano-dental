@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/custom.css">
     <?php require('includes/links.php');?>
-    <title>DentalPal - Appointments</title>
+    <title>DentalPal - Rescheduled Appointments</title>
     <?php
         if(isset($_GET['page-nr'])){
             $id = $_GET['page-nr'];
@@ -44,7 +44,7 @@
             <div class="col-12 my-5 px-4">
                 <h2 class="fw-bold">Appointments</h2>
 
-                <div style="font-size: 14px;" id="app-nav">
+                <div style="font-size: 14px;">
                     <a href="index.php" class="text-decoration-none text-secondary">
                         Home >
                     </a>
@@ -61,14 +61,14 @@
                 <!-- <h4 class="shadow-sm"><span class="badge bg-light text-secondary text-wrap lh-base d-block">DON'T FORGET TO RATE AND REVIEW OUR SERVICES, WE LOVE TO HEAR IT FROM YOU BECAUSE YOU MATTER TO US!</span></h4> -->
             </div>
             <div class="col-12 px-4 mb-2">
-                <h1>New Appointments</h1>
+                <h1>Rescheduled Appointments</h1>
             </div>
             <?php
                 // pagination not working properly
                 $start = 0;
                 $limit = 3;
 
-                $records = $con->query("SELECT * FROM `appointment_order` WHERE `patient_id` = $_SESSION[uId] AND (`appointment_status`='Pending' OR `appointment_status`='New')");
+                $records = $con->query("SELECT * FROM `appointment_order` WHERE `patient_id` = $_SESSION[uId] AND `appointment_status`='Rescheduled'");
 
                 $num_of_rows = $records->num_rows;
                 $pages = ceil($num_of_rows / $limit);
@@ -78,15 +78,15 @@
                     $start = $page * $limit;
                 }
 
-                $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE (ao.appointment_status='New' OR `appointment_status`='Pending') AND ao.patient_id = ? ORDER BY ao.id DESC LIMIT $start, $limit";
+                $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE ao.appointment_status='Rescheduled' AND ao.patient_id = ? ORDER BY ao.id DESC LIMIT $start, $limit";
                 $res = select($query, [$_SESSION['uId']], 'i');
                 // $pagination = $con->query('SELECT * FROM `appointment_order` WHERE `appointment_status` = "Pending" ');
                 
-                $btn = "";
 
                 if(mysqli_num_rows($res) == 0){
-                    echo "<h5 class='fw-bold'>Welcome Back! You have no new appointments.</h5>";
+                    echo "<h5 class='fw-bold'>Welcome Back! You have no rescheduled appointments right now.</h5>";
                 }
+                
 
                 while($data = mysqli_fetch_assoc($res)){
                     $created_at = date('d-m-Y', strtotime($data['created_at']));
@@ -96,19 +96,18 @@
                     $price = $data['total_pay'];
                     $formatedPrice = number_format($price,2,'.',',');
 
-                    
                     echo<<<appointments
                         <div class='col-lg-4 col-md-6 col-sm-12 px-4 mb-4'>
-                            <div class='p-3 rounded shadow-sm' style="background-color: rgba(255, 99, 132, 0.2);border: 2px solid rgb(255, 99, 132);">
+                            <div class='p-3 rounded shadow-sm' style="background-color: rgba(255,116,0, 0.2);border: 2px solid rgb(255,116,0);">
                                 <p class='badge bg-dark'>
                                     <b>Order ID: </b>$data[order_id]
                                 </p>
                                 <h5 class='fw-bold'>$data[service_name]</h5>
                                 <p>₱$formatedPrice</p>
-                                <p class='badge text-dark' style="background-color: rgba(255, 99, 132, 0.4);">
+                                <p class='badge text-dark' style="background-color: rgba(255,116,0, 0.4);">
                                     <b>Prefered Date: </b>$date
                                 </p>
-                                <p class='badge text-dark' style="background-color: rgba(255, 99, 132, 0.4);">
+                                <p class='badge text-dark' style="background-color: rgba(255,116,0, 0.4);">
                                     <b>Prefered Time: </b>$time
                                 </p>
                                 <p>
@@ -118,12 +117,11 @@
                                 <div class="container">
                                     <div class="row">
                                             <p class='badge bg-warning text-dark fs-6'>$data[appointment_status]</p>
-                                            <button onclick='cancel_appointment($data[id], "$data[order_id]")' type='button' class='btn btn-outline-danger btn-sm shadow-none'>
-                                                Cancel Appointment
+                                            <button onclick='accept_appointment($data[id], "$data[order_id]")' type='button' class='btn btn-outline-success btn-sm shadow-none'>
+                                                Accept Appointment
                                             </button>
                                     </div>
                                 </div>
-                                $btn
                             </div>
                         </div>
                     appointments;
@@ -200,16 +198,16 @@
         let bodyId =parseInt(document.body.id) - 1;
         links[bodyId].classList.add("actived");
 
-        function cancel_appointment(id, order_id){
-            if(confirm('Are you SURE to CANCEL appointment? Only 80% of your payment will be REFUNDED!')){
+        function accept_appointment(id, order_id){
+            if(confirm('Are you SURE to ACCEPT rescheduled appointment?')){
                 let xhr = new XMLHttpRequest();
                 xhr.open("POST", "ajax/appointments.php", true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
                 xhr.onload = function(){
                     if(this.responseText==1){
-                        window.location.href="appointments.php?page-nr=1&cancel_status=true";
-                        alert('success', 'Appointment Cancelled.');
+                        window.location.href="rescheduled_appointments.php?page-nr=1&reschedule_status=true";
+                        alert('success', 'Appointment Accepted.');
                     }else if(this.responseText == 'mail_failed'){
                         alert('error', 'Email failed to sent.');
                     }
@@ -218,7 +216,7 @@
                     }
                 }
         
-                xhr.send('cancel_appointment&id='+id+'&order_id='+order_id);
+                xhr.send('accept_appointment&id='+id+'&order_id='+order_id);
             }
         }
 

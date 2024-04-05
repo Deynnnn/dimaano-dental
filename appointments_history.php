@@ -44,7 +44,7 @@
             <div class="col-12 my-5 px-4">
                 <h2 class="fw-bold">Appointments</h2>
 
-                <div style="font-size: 14px;" id="app-nav">
+                <div style="font-size: 14px;">
                     <a href="index.php" class="text-decoration-none text-secondary">
                         Home >
                     </a>
@@ -61,14 +61,14 @@
                 <!-- <h4 class="shadow-sm"><span class="badge bg-light text-secondary text-wrap lh-base d-block">DON'T FORGET TO RATE AND REVIEW OUR SERVICES, WE LOVE TO HEAR IT FROM YOU BECAUSE YOU MATTER TO US!</span></h4> -->
             </div>
             <div class="col-12 px-4 mb-2">
-                <h1>New Appointments</h1>
+                <h1>Appointments History</h1>
             </div>
             <?php
                 // pagination not working properly
                 $start = 0;
                 $limit = 3;
 
-                $records = $con->query("SELECT * FROM `appointment_order` WHERE `patient_id` = $_SESSION[uId] AND (`appointment_status`='Pending' OR `appointment_status`='New')");
+                $records = $con->query("SELECT * FROM `appointment_order` WHERE `appointment_status`='Accepted' AND `patient_id` = $_SESSION[uId]");
 
                 $num_of_rows = $records->num_rows;
                 $pages = ceil($num_of_rows / $limit);
@@ -78,37 +78,46 @@
                     $start = $page * $limit;
                 }
 
-                $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE (ao.appointment_status='New' OR `appointment_status`='Pending') AND ao.patient_id = ? ORDER BY ao.id DESC LIMIT $start, $limit";
+                $query = "SELECT ao.*, ad.* FROM `appointment_order` ao INNER JOIN `appointment_details` ad ON ao.id = ad.appointment_id WHERE ao.appointment_status = 'Accepted' AND ao.patient_id = ? ORDER BY ao.id DESC LIMIT $start, $limit";
                 $res = select($query, [$_SESSION['uId']], 'i');
                 // $pagination = $con->query('SELECT * FROM `appointment_order` WHERE `appointment_status` = "Pending" ');
                 
-                $btn = "";
-
                 if(mysqli_num_rows($res) == 0){
-                    echo "<h5 class='fw-bold'>Welcome Back! You have no new appointments.</h5>";
+                    echo "<h5 class='fw-bold'>Welcome Back! Your appointment are still pending.</h5>";
                 }
+                
 
                 while($data = mysqli_fetch_assoc($res)){
                     $created_at = date('d-m-Y', strtotime($data['created_at']));
                     $date = date('m-d-Y', strtotime($data['date']));
                     $time = date('h:m:s a', strtotime($data['time']));
 
+                    $btn = "";
+
                     $price = $data['total_pay'];
                     $formatedPrice = number_format($price,2,'.',',');
 
-                    
+                    if($data['rate_review'] == 0){
+                        $btn .= "<button type='button' onclick='review_appointment($data[id], $data[service_id])' data-bs-toggle='modal' data-bs-target='#rate_reviewModal' class='btn btn-success btn-sm shadow-none'>
+                        Rate and Review
+                        </button>";
+                    }else{
+                        $btn;
+                    }
+
+
                     echo<<<appointments
                         <div class='col-lg-4 col-md-6 col-sm-12 px-4 mb-4'>
-                            <div class='p-3 rounded shadow-sm' style="background-color: rgba(255, 99, 132, 0.2);border: 2px solid rgb(255, 99, 132);">
+                            <div class='p-3 rounded shadow-sm' style="background-color: rgb(78,186,22, 0.2);border: 2px solid rgb(78,186,22);">
                                 <p class='badge bg-dark'>
                                     <b>Order ID: </b>$data[order_id]
                                 </p>
                                 <h5 class='fw-bold'>$data[service_name]</h5>
                                 <p>₱$formatedPrice</p>
-                                <p class='badge text-dark' style="background-color: rgba(255, 99, 132, 0.4);">
+                                <p class='badge text-dark' style="background-color: rgb(78,186,22, 0.6);">
                                     <b>Prefered Date: </b>$date
                                 </p>
-                                <p class='badge text-dark' style="background-color: rgba(255, 99, 132, 0.4);">
+                                <p class='badge text-dark' style="background-color: rgb(78,186,22, 0.6);">
                                     <b>Prefered Time: </b>$time
                                 </p>
                                 <p>
@@ -117,13 +126,9 @@
                                 </p>
                                 <div class="container">
                                     <div class="row">
-                                            <p class='badge bg-warning text-dark fs-6'>$data[appointment_status]</p>
-                                            <button onclick='cancel_appointment($data[id], "$data[order_id]")' type='button' class='btn btn-outline-danger btn-sm shadow-none'>
-                                                Cancel Appointment
-                                            </button>
+                                            $btn
                                     </div>
                                 </div>
-                                $btn
                             </div>
                         </div>
                     appointments;
@@ -192,89 +197,96 @@
         </div>
     </div>
     
+    <div class="modal fade" id="rate_reviewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="reviewForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title d-flex align-items-center">
+                            <i class="bi bi-chat-square-heart-fill fs-3 me-2"></i></i>Rate & Review
+                        </h5>
+                        <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <span class="badge bg-light text-success mb-3 text-wrap lh-base">Rate services you acquire on our clinic we are honored to hear it from you!</span>
+                        <div class="mb-3">
+                            <label class="form-label">Rating</label>
+                            <select class="form-select shadow-none" aria-label="Default select example" name="rating">
+                                <option value="5">Excellent</option>
+                                <option value="4">Good</option>
+                                <option value="3">Fair</option>
+                                <option value="2">Poor</option>
+                                <option value="1">Bad</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Review</label>
+                            <textarea name="review" id="" rows="3" class="form-control shadow-none" required></textarea>
+                        </div>
+
+                        <input type="hidden" name="id">
+                        <input type="hidden" name="service_id">
+
+                        <div class="text-end">
+                            <button class="btn btn-success text-light shadow-none px-4 mb-2" >SUBMIT</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <?php
+        if(isset($_GET['review_status'])){
+            alert('success', 'Thankyou for your rating and review!');
+        }
+    ?>
 
     <?php require('includes/footer.php');?>
     <script>
 
-        let links =document.querySelectorAll('.page-numbers > a');
-        let bodyId =parseInt(document.body.id) - 1;
-        links[bodyId].classList.add("actived");
-
-        function cancel_appointment(id, order_id){
-            if(confirm('Are you SURE to CANCEL appointment? Only 80% of your payment will be REFUNDED!')){
-                let xhr = new XMLHttpRequest();
-                xhr.open("POST", "ajax/appointments.php", true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-                xhr.onload = function(){
-                    if(this.responseText==1){
-                        window.location.href="appointments.php?page-nr=1&cancel_status=true";
-                        alert('success', 'Appointment Cancelled.');
-                    }else if(this.responseText == 'mail_failed'){
-                        alert('error', 'Email failed to sent.');
-                    }
-                    else{
-                        alert('error', 'Cancellation Failed')
-                    }
-                }
-        
-                xhr.send('cancel_appointment&id='+id+'&order_id='+order_id);
-            }
+        let review_form = document.getElementById('reviewForm');
+        function review_appointment(bid, rid){
+            review_form.elements['id'].value = bid;
+            review_form.elements['service_id'].value = rid;
         }
 
-        // function check_out(b_id, r_id){
-        //     if(confirm('Are you about to check out, Confirm to continue.')){
-        //         let xhr = new XMLHttpRequest();
-        //         xhr.open("POST", "ajax/cancel_booking.php", true);
-        //         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        review_form.addEventListener('submit', function(e){
+            e.preventDefault();
 
-        //         xhr.onload = function(){
-        //             if(this.responseText==1){
-        //                 window.location.href="bookings.php?checkout_status=true";
-        //                 alert('success', 'Checkout Successful')
-        //             }else{
-        //                 alert('error', 'Checkout Failed')
-        //             }
-        //         }
-        
-        //         xhr.send('check_out&b_id=' + b_id + '&r_id=' + r_id);
-        //     }
-        // }
-
-        // let review_form = document.getElementById('review-form');
-        // function review_room(bid, rid){
-        //     review_form.elements['booking_id'].value = bid;
-        //     review_form.elements['room_id'].value = rid;
-        // }
-
-        // review_form.addEventListener('submit', function(e){
-        //     e.preventDefault();
-
-        //     let data = new FormData();
-        //     data.append('review_form', '');
-        //     data.append('rating',review_form.elements['rating'].value);
-        //     data.append('review',review_form.elements['review'].value);
-        //     data.append('booking_id',review_form.elements['booking_id'].value);
-        //     data.append('room_id',review_form.elements['room_id'].value);
+            let data = new FormData();
+            data.append('review_form', '');
+            data.append('review',review_form.elements['review'].value);
+            data.append('rating',review_form.elements['rating'].value);
+            data.append('id',review_form.elements['id'].value);
+            data.append('service_id',review_form.elements['service_id'].value);
 
             
 
-        //     let xhr = new XMLHttpRequest();
-        //     xhr.open("POST", "ajax/review_room.php", true);
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "ajax/review_appointment.php", true);
 
-        //     xhr.onload = function(){
-        //         if(this.responseText == 1){
-        //             window.location.href = 'bookings.php?review_status=true'
-        //         }else{
-        //             var myModal = document.getElementById('rate_reviewModal');
-        //             var modal = bootstrap.Modal.getInstance(myModal);
-        //             modal.hide();
-        //             alert('success', "Rating & Review Failed");
-        //         }
+            xhr.onload = function(){
+                if(this.responseText == 1){
+                    window.location.href = 'appointments_history.php?review_status=true';
+                    // alert('error', "Rating & Review Successful");
+
+                }else{
+                    var myModal = document.getElementById('rate_reviewModal');
+                    var modal = bootstrap.Modal.getInstance(myModal);
+                    modal.hide();
+                    alert('error', "Rating & Review Failed");
+                }
                 
-        //     }
-        //     xhr.send(data);
-        // });
+            }
+            xhr.send(data);
+        });
+
+        
+        let links =document.querySelectorAll('.page-numbers > a');
+        let bodyId =parseInt(document.body.id) - 1;
+        links[bodyId].classList.add("actived");
     </script>
 </body>
 </html>

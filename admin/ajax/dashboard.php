@@ -33,10 +33,10 @@
                         SUM(CASE WHEN appointment_status = 'Cancelled' AND refund = 0 THEN `trans_amt` END) AS `cancelled_amt` FROM `appointment_order` $condition"
                     ));
         
-        $result['total_amt'] = number_format($result['total_amt'], 2, '.', ',');
-        $result['active_amt'] = number_format($result['active_amt'], 2, '.', ',');
-        $result['past_amt'] = number_format($result['past_amt'], 2, '.', ',');
-        $result['cancelled_amt'] = number_format($result['cancelled_amt'], 2, '.', ',');
+        // $result['total_amt'] = number_format($result['total_amt'], 2, '.', ',');
+        // $result['active_amt'] = number_format($result['active_amt'], 2, '.', ',');
+        // $result['past_amt'] = number_format($result['past_amt'], 2, '.', ',');
+        // $result['cancelled_amt'] = number_format($result['cancelled_amt'], 2, '.', ',');
 
         $output = json_encode($result);
 

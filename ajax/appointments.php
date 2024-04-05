@@ -111,6 +111,25 @@
         }
     }
 
+    if(isset($_POST['accept_appointment'])){
+        $frm_data = filteration($_POST);
+
+        $q = 'UPDATE `appointment_order` SET `appointment_status`=?, `refund`=? WHERE `id`=? AND `patient_id`=?';
+        $v = ['Accepted', 0, $frm_data['id'], $_SESSION['uId']];
+        $r = update($q, $v, 'siii');
+
+        // if(!sendMail($frm_data["order_id"])){
+        //     echo 'mail_failed';
+        //     exit;
+        // }
+
+        if($r){
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
+
     // if(isset($_GET['search'])){
     //     $filterval = $_GET['search'];
     //     $query = "SELECT * FROM appointment_order WHERE order_id LIKE '%$filterval%";

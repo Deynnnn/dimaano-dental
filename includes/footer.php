@@ -49,6 +49,20 @@
         }
     }
 
+    function setAppActive(){
+        let navbar = document.getElementById('app-nav');
+        let a_tags = navbar.getElementsByTagName('a');
+
+        for(i=0; i<a_tags.length;i++){
+            let file = a_tags[i].href.split('/').pop();
+            let fileName = file.split('.')[0];
+            
+            if(document.location.href.indexOf(fileName) >= 0){
+                a_tags[i].classList.add('active');
+            }
+        }
+    }
+
     function checkLoginToBook(status,service_id){
         if(status){
             window.location.href='confirm_appointment.php?id='+service_id;
