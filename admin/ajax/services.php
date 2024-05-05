@@ -34,11 +34,11 @@
 
             if($row['status']==1){
                 $status = "
-                    <button onclick='toggle_status($row[id],0)' class='btn btn-success btn-sm shadow-none'>active</button>
+                    <button onclick='toggle_status($row[id],0)' class='btn btn-success btn-sm shadow-none'>Active</button>
                 ";
             }else{
                 $status = "
-                    <button onclick='toggle_status($row[id],1)' class='btn btn-warning btn-sm shadow-none'>inactive</button>
+                    <button onclick='toggle_status($row[id],1)' class='btn btn-warning btn-sm shadow-none'>Inactive</button>
                 ";
             }
 
@@ -46,24 +46,32 @@
             $formatedPrice = number_format($price,2,'.',',');
 
             $data.="
-                <tr class='align-middle'>
-                    <td>$i</td>
-                    <td>$row[name]</td>
-                    <td>₱$formatedPrice</td>
-                    <td>$row[description]</td>
-                    <td>$status</td>
-                    <td>
-                        <button type='button' onclick='edit_details($row[id])' class='btn btn-primary shadow-none btn-sm mb-2' data-bs-toggle='modal' data-bs-target='#edit-service'>
-                            <i class='bi bi-pencil-square'></i>
-                        </button>
-                        <button type='button' onclick=\"service_images($row[id], '$row[name]')\" class='btn btn-info shadow-none btn-sm mb-2' data-bs-toggle='modal' data-bs-target='#service-image'>
-                            <i class='bi bi-images'></i>
-                        </button>
-                        <button type='button' onclick='remove_service($row[id])' class='btn btn-danger shadow-none btn-sm mb-2'>
-                            <i class='bi bi-trash'></i>
-                        </button>
-                    <td>
-                </tr>
+                <div class='col-lg-6 col-md-12 mb-4 mt-2'>
+                    <div class='p-3 rounded shadow'>
+                        <div class='d-flex justify-content-between align-items-center mb-3'>
+                            <h5 class='card-title'>$row[name]</h5>
+                            $status
+                        </div>
+                        <div class='d-flex justify-content-between align-items-center'>
+                            <div class=''>
+                                <h6 class='card-subtitle text-body-secondary'><b>Dimaano Dental Clinic</b></h6>
+                                <h6 class='card-subtitle mb-2 text-body-secondary'>$formatedPrice</h6>
+                            </div>
+                            <div class='d-flex justify-content-between align-items-center'>
+                                <button type='button' onclick='edit_details($row[id])' class='btn btn-primary shadow-none btn-sm me-2' data-bs-toggle='modal' data-bs-target='#edit-service'>
+                                    <i class='bi bi-pencil-square'></i>
+                                </button>
+                                <button type='button' onclick=\"service_images($row[id], '$row[name]')\" class='btn btn-info shadow-none btn-sm me-2' data-bs-toggle='modal' data-bs-target='#service-image'>
+                                    <i class='bi bi-images'></i>
+                                </button>
+                                <button type='button' onclick='remove_service($row[id])' class='btn btn-danger shadow-none btn-sm me-2'>
+                                    <i class='bi bi-trash'></i>
+                                </button>
+                                <a href='service_history.php?id=$row[id]' class='btn btn-outline-secondary shadow-none btn-sm border-0'><i class='bi bi-eye fs-5'></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             ";
             $i++;
         }
