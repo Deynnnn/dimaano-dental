@@ -26,13 +26,40 @@
         <?php require('includes/navbar.php');?>
     </div>
     <div class="my-5 text-center">
-        <img class="d-block mx-auto img-fluid mb-4 w-95"  src="images/banner.png" alt="">
         <span class="fs-1 fw-bold site-title">Announcements</span>
         <h1 class="display-5 fw-bold text-body-emphasis mb-4">Gentle Care, Radiant Smiles</h1>
         <div class="col-lg-6 mx-auto">
             <p class="lead fw-bolder mb-4">Transforming Lives, One Smile at a Time: Your Journey to a Healthier, Happier You Starts Right Here.</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
             </div>
+        </div>
+    </div>
+    <div class="container">
+        <h2 class="pb-2 border-bottom"></h2>
+        
+        <div class="row">
+
+        <?php
+            $q = "SELECT * FROM announcements WHERE removed = 0 ORDER BY id DESC";
+            $data = mysqli_query($con, $q);
+            $i=1;
+            while($row = mysqli_fetch_assoc($data)){
+                echo<<<announcement
+                    <div class="card col-lg-4 col-md-6 col-sm-12 mb-3 me-2" style="width: 25rem;">
+                        <div class="card-body">
+                            <div class="d-flex align-content-center justify-content-between mb-2">
+                                <h3 class="display-6 lh-1 fw-bold">$row[title]</h3>
+                            </div>
+                                <hr class="text-light-sm">
+                            <div>
+                                <p class="card-text">$row[description]</p>
+                            </div>
+                        </div>
+                    </div>
+                announcement;
+            }
+        ?>
+        
         </div>
     </div>
     <?php require('includes/footer.php');?>
