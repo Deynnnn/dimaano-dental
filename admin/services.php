@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DentalPal - Services</title>
+    <title>ADMIN PANEL - SERVICES</title>
     <?php require('includes/links.php');?>
     <style>
         .custom-alert{
@@ -40,35 +40,21 @@
         }
     </style>
 </head>
-<body style="background-color: rgb(248,247,250);">
+<body class="bg-white">
 <?php 
     require('includes/header.php');
 ?>
 <div class="container-fluid" id="main-content">
     <div class="row">
         <div class="col-lg-10 ms-auto p-4 overflow-hidden">
-            
-            <div class="card border-0 shadow mb-4">
+            <div class="text-end d-flex justify-content-between align-items-center">
+                <h4 class="mb-4">SERVICES</h4>
+                <button type="button" class="btn custom-bg text-white fw-medium shadow-none btn-md" data-bs-toggle="modal" data-bs-target="#add-service"><i class="bi bi-plus-square"></i> Add</button>
+            </div>
+
+            <div class="card border-0 shadow-none mb-4">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 class="mb-4">Services</h4>
-                        <button type="button" class="btn btn-success shadow-none btn-md" data-bs-toggle="modal" data-bs-target="#add-service"><i class="bi bi-plus-square"></i> Add</button>
-                    </div>
-                    <div class="table-responsive-lg" style="height: 650px; overflow-y: scroll;">
-                        <table class="table table-hover text-center">
-                            <thead>
-                                <tr class="text-white" style="background-color: rgb(100,20,22);">
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Price</th>
-                                <th scope="col" style="width:45%">Description</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="serviceData">
-                            </tbody>
-                        </table>
+                    <div id="serviceData" class="row">
                     </div>
                 </div>
             </div>
@@ -152,7 +138,7 @@
         <div class="modal-body">
             <div id="image-alert"></div>
             <div class="border-bottom border-3 mb-3 pb-3">
-                <form id="add_image_form">
+                <form id="add_image_form" enctype="multipart/form-data">
                         <label class="form-label fw-bold">Add Image</label>
                         <input type="file" name="image" accept="[.jpg, .png, .webp, .jpeg]" class="form-control shadow-none mb-3" required>
                         <button class="btn custom-bg text-white shadow-none">ADD</button>
