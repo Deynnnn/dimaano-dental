@@ -35,6 +35,7 @@
             position: fixed;
             top: 80px;
             right: 25px;
+            z-index: 99999;
         }
         #dashboard-menu{
             position: fixed;

@@ -91,6 +91,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center" href="announcements.php">
+                            <span class="material-symbols-outlined">
+                            campaign 
+                            </span> 
+                            Announcement
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-white d-flex align-items-center" href="settings.php">
                             <span class="material-symbols-outlined">
                                 settings

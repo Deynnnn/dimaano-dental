@@ -18,6 +18,9 @@
                 <li class="nav-item">
                 <a class="nav-link hov" href="services.php?page-nr=1">Services</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link hov" href="announcement.php">Announcement</a>
+                </li>
                 <!-- <li class="nav-item">
                 <a class="nav-link hov" href="book_appointment.php">Book an Appointment</a>
                 </li> -->
