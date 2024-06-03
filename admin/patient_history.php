@@ -54,7 +54,7 @@
     ?>
 
     <div class="container" id="main-content">
-        <div class="row ms-4">
+        <div class="col-lg-10 ms-auto p-4 overflow-hidden">
                 
                         <?php 
                             if(!isset($_GET['id'])){
@@ -91,17 +91,21 @@
                                 $service_res = select("SELECT * FROM `appointment_details` WHERE `appointment_id`=?",[$hist_data['id']], 'i');
                                 $service_data = mysqli_fetch_assoc($service_res);
 
+                                $created_at = date('d-m-Y', strtotime($hist_data['created_at']));
+
 
                                 echo<<<history
                                     <div class='col-lg-4 col-md-6 px-4 mb-4 mt-4'>
                                         <div class='p-3 rounded shadow'>
                                             <h2 class='fw-bold'>$service_data[service_name]</h2>
-                                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                                    <p class='badge bg-light text-dark fs-6 m-0'>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                    <p class='badge bg-light text-dark fs-6 m-0 p-0'>
                                                         <b>Order ID: </b>$hist_data[order_id]
                                                     </p>
                                                     <p class="mb-0 fs-5">₱$formatedPrice</p>
                                             </div>
+                                            <h6 class="card-subtitle mb-4">Date Availed: <span class="fw-light">$created_at</span></h6>
+
 
                                             <div class="container">
                                                 <div class="row">
