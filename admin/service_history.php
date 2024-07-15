@@ -56,6 +56,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN PANEL - SERVICES</title>
     <?php require('includes/links.php');?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .custom-alert{
             position: fixed;
@@ -94,15 +96,18 @@
                 <h4 class=""><?php echo $service_data['name'];?> Appointments History</h4>
                 <a href="services.php" class="btn btn-secondary">BACK</a>
             </div>
-
-            <div class="">
+            <div class="col-md-12">
+                <h5 class="mb-4 fw-bold">Monthly Applicants</h5>
+                <canvas id="applicantChart" width="800" height="100"></canvas>
+            </div>
+            <div class="" >
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="">
-                        <h4>Total Amount: ₱<?php echo $Amount; ?></h4>
-                    </div>
-                    <form id="filterForm" class="mb-2 col-6">
-                        <label for="interval" class="form-label">Filter here:</label>
+                    <form id="filterForm" class="mb-2 col-12 d-flex justify-content-between align-items-center">
+                        <div class="">
+                            
+                        </div>
                         <div class="row">
+                            <label for="interval" class="form-label">Filter here:</label>
                             <div class="col-md-9">
                                 <select name="interval" id="interval" class="form-select">
                                     <option value="daily" <?php echo isset($_GET['interval']) && $_GET['interval'] === 'daily' ? 'selected' : ''; ?>>Daily</option>
@@ -113,18 +118,22 @@
                                 </select>
                                 <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 ps-1">
                                 <button type="button" id="filterButton" class="btn btn-primary">Filter</button>
                             </div>
                         </div>
                     </form>
-                    
                 </div>
             </div>
             
-            <div class="card border-0 shadow-none mb-4">
-                <div class="card-body">
-
+            <div class="text-end">
+                <button id="printButton" class="btn btn-secondary mb-2">Print</button>
+            </div>
+            <div class="card border-0 shadow-none mb-4"  id="appointments">
+                <div class="card-body p-0">
+                    <div class="">
+                        <h4 class="">Total Amount: ₱<?php echo $Amount; ?></h4>
+                    </div>
                     <div class="row">
                     <?php
                         // Retrieve appointments based on the selected interval
@@ -161,6 +170,7 @@
                             if($appointment_data['date'] != null){
                                 $date = date("F d, Y", strtotime($appointment_data['date']));
                             }
+                            $created_at = date("F d, Y", strtotime($appointment_data['created_at']));
     
                             $price = $appointment_data['trans_amt'];
                             $formatedPrice = number_format($price,2,'.',',');
@@ -174,6 +184,7 @@
                                         <h5 class="card-title ">Patient name: <span class="fw-light">$patient_data[first_name] $patient_data[last_name]</span></h5>
                                         <h6 class="card-subtitle ">$formatedPrice</h6>
                                     </div>
+                                    <h6 class="card-subtitle ">Date Availed: <span class="fw-light">$created_at</span></h6>
                                     <h6 class="card-subtitle ">Appointment date: <span class="fw-light">$date</span></h6>
                                 </div>
                             data;
@@ -205,7 +216,56 @@
                 // Reload the page to apply the filter (you can perform AJAX request instead)
                 window.location.reload();
             });
+
+            $('#printButton').click(function() {
+                var printContents = document.getElementById('appointments').innerHTML;
+                var originalContents = document.body.innerHTML;
+
+                document.body.innerHTML = printContents;
+
+                window.print();
+
+                document.body.innerHTML = originalContents;
+
+                // Reload the page to restore the original state
+                window.location.reload();
+            });
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('patient_service.php')
+        .then(response => response.json())
+        .then(data => {
+          const counts = data;
+
+          const ctx = document.getElementById('applicantChart').getContext('2d');
+          const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+              datasets: [{
+                label: 'Patients',
+                data: counts,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    });
+  </script>
 </body>
 </html>
