@@ -3,6 +3,33 @@
     require('includes/dbConfig.php');
 
     adminLogin();
+
+    $daily_data = [];
+$weekly_data = [];
+$monthly_data = [];
+
+$daily_query = "SELECT DATE(created_at) as date, COUNT(*) as count FROM `appointment_order` ao GROUP BY DATE(created_at)";
+$weekly_query = "SELECT YEARWEEK(created_at, 1) as week, COUNT(*) as count FROM `appointment_order` ao GROUP BY YEARWEEK(created_at, 1)";
+$monthly_query = "SELECT DATE_FORMAT(created_at, '%Y-%m') as month, COUNT(*) as count FROM `appointment_order` ao GROUP BY DATE_FORMAT(created_at, '%Y-%m')";
+
+$daily_result = mysqli_query($con, $daily_query);
+$weekly_result = mysqli_query($con, $weekly_query);
+$monthly_result = mysqli_query($con, $monthly_query);
+
+while ($row = mysqli_fetch_assoc($daily_result)) {
+    $daily_data[$row['date']] = $row['count'];
+}
+while ($row = mysqli_fetch_assoc($weekly_result)) {
+    $weekly_data[$row['week']] = $row['count'];
+}
+while ($row = mysqli_fetch_assoc($monthly_result)) {
+    $monthly_data[$row['month']] = $row['count'];
+}
+
+// Convert PHP arrays to JSON for JavaScript
+$daily_data_json = json_encode($daily_data);
+$weekly_data_json = json_encode($weekly_data);
+$monthly_data_json = json_encode($monthly_data);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -159,6 +186,21 @@
                         </div>
                     </div>
 
+                    <div class="row my-3">
+                        <div class="col-4">
+                            <h4>Daily Appointments</h4>
+                            <canvas id="dailyChart"></canvas>
+                        </div>
+                        <div class="col-4">
+                            <h4>Weekly Appointments</h4>
+                            <canvas id="weeklyChart"></canvas>
+                        </div>
+                        <div class="col-4">
+                            <h4>Monthly Appointments</h4>
+                            <canvas id="monthlyChart"></canvas>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- user, quiries, reviews analytics -->
@@ -252,5 +294,119 @@
 
     <?php require('includes/scripts.php');?>
     <script src="scripts/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    // Parse JSON data from PHP
+    const dailyData = JSON.parse('<?php echo $daily_data_json; ?>');
+    const weeklyData = JSON.parse('<?php echo $weekly_data_json; ?>');
+    const monthlyData = JSON.parse('<?php echo $monthly_data_json; ?>');
+
+    // Prepare data for daily chart
+    const dailyLabels = Object.keys(dailyData);
+    const dailyCounts = Object.values(dailyData);
+
+    // Prepare data for weekly chart
+    const weeklyLabels = Object.keys(weeklyData);
+    const weeklyCounts = Object.values(weeklyData);
+
+    // Prepare data for monthly chart
+    const monthlyLabels = Object.keys(monthlyData);
+    const monthlyCounts = Object.values(monthlyData);
+
+    // Generate Daily Utilization Chart
+    new Chart(document.getElementById('dailyChart'), {
+        type: 'line',
+        data: {
+            labels: dailyLabels,
+            datasets: [{
+                label: 'Daily Appointments',
+                data: dailyCounts,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Number of Appointments'
+                    }
+                }
+            }
+        }
+    });
+
+    // Generate Weekly Utilization Chart
+    new Chart(document.getElementById('weeklyChart'), {
+        type: 'bar',
+        data: {
+            labels: weeklyLabels,
+            datasets: [{
+                label: 'Weekly Appointments',
+                data: weeklyCounts,
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Week'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Number of Appointments'
+                    }
+                }
+            }
+        }
+    });
+
+    // Generate Monthly Utilization Chart
+    new Chart(document.getElementById('monthlyChart'), {
+        type: 'bar',
+        data: {
+            labels: monthlyLabels,
+            datasets: [{
+                label: 'Monthly Appointments',
+                data: monthlyCounts,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+</script>
+
 </body>
 </html>

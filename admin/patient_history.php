@@ -55,6 +55,9 @@
 
     <div class="container" id="main-content">
         <div class="col-lg-10 ms-auto p-4 overflow-hidden">
+            <div class="row">
+
+            
                 
                         <?php 
                             if(!isset($_GET['id'])){
@@ -85,6 +88,10 @@
                                 }else if($hist_data['appointment_status'] == 'Pending'){
                                     $status_bg = 'bg-warning text-dark';
                                 }else if($hist_data['appointment_status'] == 'Cancelled'){
+                                    $status_bg = 'bg-danger text-light';
+                                }else if($hist_data['appointment_status'] == 'New'){
+                                    $status_bg = 'bg-info text-light';
+                                }else if($hist_data['appointment_status'] == 'Rescheduled'){
                                     $status_bg = 'bg-secondary text-light';
                                 }
 
@@ -117,6 +124,7 @@
                                     history;
                             }
                         ?>
+            </div>    
         </div>
     </div>
 

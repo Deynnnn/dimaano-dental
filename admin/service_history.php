@@ -230,6 +230,12 @@
                         }
                     ?>
                     </div>
+                    <div class="row">
+                        <div class="col text-end px-0">
+                            <!-- <button id="generatePDF" class="btn btn-success">Generate PDF</button> -->
+                            <button id="generatePDF" class="btn btn-success">Generate PDF Report</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -257,36 +263,16 @@
     // echo "const counts = " . json_encode($monthlyCounts) . ";";
     ?>
     <script src="scripts/services.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        const counts = <?php echo json_encode($monthlyCounts); ?>;
-        document.addEventListener('DOMContentLoaded', () => {
-            // Use the 'counts' variable here to populate the chart
-            const ctx = document.getElementById('applicantChart').getContext('2d');
-            const chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                    datasets: [{
-                        label: 'Applicants',
-                        data: counts, // Use the 'counts' variable here
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
-                }
-            });
+        document.getElementById('generatePDF').addEventListener('click', function () {
+            // Submit the form to generate the PDF
+            window.location.href = "generate_pdf.php?id=<?php echo $data['id']; ?>&interval=<?php echo isset($_GET['interval']) ? $_GET['interval'] : ''; ?>";
         });
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                    
     <script>
         $(document).ready(function() {
             $('#filterButton').click(function() {
