@@ -17,15 +17,15 @@
         $mail = new PHPMailer;
 
         $mail->isSMTP();
-        $mail->Host='host';
-        $mail->Port='port';
+        $mail->Host='smtp.gmail.com';
+        $mail->Port=587;
         $mail->SMTPAuth=true;
         $mail->SMTPSecure='tls';
 
-        $mail->Username='smtp_mail';
-        $mail->Password='smtp_secret';
+        $mail->Username='deyndeyn727@gmail.com';
+        $mail->Password='zwkkjcfbacijseku';
 
-        $mail->setFrom('smtp_mail', $subject);
+        $mail->setFrom('deyndeyn727@gmail.com', $subject);
         $mail->addAddress($email);
 
         $mail->isHTML(true);
@@ -102,12 +102,12 @@
 
         $ch = curl_init();
         $parameters = array(
-            'apikey' => 'Your API KEY', //Your API KEY
+            'apikey' => '4cfb842bbb619d7b04aa93cfd5e84d09', //Your API KEY
             'number' => $contact_number,
             'message' => "We want to notify you that your dental appointment on Dimaano Dental Clinic request has been accepted. Settle your payment visit our website for instructions. Manage appointment using your email and appointment number:  $ticket",
             'sendername' => 'SEMAPHORE'
         );
-        curl_setopt( $ch, CURLOPT_URL,'semaphorelink' );
+        curl_setopt( $ch, CURLOPT_URL,'https://semaphore.co/api/v4/messages' );
         curl_setopt( $ch, CURLOPT_POST, 1 );
 
         //Send the parameters set above with the request
@@ -119,6 +119,7 @@
         curl_close ($ch);
 
         if ($mail->send()) {
+            // echo $output;
             return 1;
             echo $output;
         } else {
@@ -234,12 +235,12 @@
 
         $ch = curl_init();
         $parameters = array(
-            'apikey' => 'semaphore_secret', //Your API KEY
+            'apikey' => '4cfb842bbb619d7b04aa93cfd5e84d09', //Your API KEY
             'number' => $contact_number,
             'message' => "'We want to notify you that your dental appointment request on Gabito Dental Clinic has been declined due to certain circumstances. Make another appointment at dentcast.000.pe' $ticket",
             'sendername' => 'SEMAPHORE'
         );
-        curl_setopt( $ch, CURLOPT_URL,'semaphore_link' );
+        curl_setopt( $ch, CURLOPT_URL,'https://semaphore.co/api/v4/messages' );
         curl_setopt( $ch, CURLOPT_POST, 1 );
 
         //Send the parameters set above with the request
@@ -258,6 +259,138 @@
         }
 
         
+    }
+
+    function resched_mail($email, $type, $ticket, $date, $time, $name, $contact_number){
+        $type = 'appointment_resheduled';
+        $page = 'app_portal.php';
+        $subject = 'Castillet Dental Clinic - Appointment Reschedule';
+        $content = 'Appointment Rescheduled';
+
+        $mail = new PHPMailer;
+
+        $mail->isSMTP();
+        $mail->Host='smtp.gmail.com';
+        $mail->Port=587;
+        $mail->SMTPAuth=true;
+        $mail->SMTPSecure='tls';
+
+        $mail->Username='deyndeyn727@gmail.com';
+        $mail->Password='zwkkjcfbacijseku';
+
+        $mail->setFrom('deyndeyn727@gmail.com', $subject);
+        $mail->addAddress($email);
+
+        $mail->isHTML(true);
+        $mail->Subject= $subject;
+        $mail->Body="<div id='wrapper' style='
+        background-color: #f0f6fb; 
+        font-family: 'Roboto', sans-serif; font-size: 19px;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 3%;'>
+    
+            <header
+            style='
+            width: 98%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            '
+            >
+                <div id='logo'>
+                    <img
+                        src='images/logo.png'
+                        width='100'
+                        style='max-width: 100%'
+                        alt=''
+                    />
+                </div>
+                <div>
+                    <h1>Castillet Dental Clininc</h1>
+                    <p id='contact' style='
+                    text-align: center;
+                    padding-bottom: 3%;
+                    line-height: 16px;
+                    font-size: 12px;
+                    color: #303840;
+                    '>
+                        Poblaction 2 
+                        Victoria 
+                        5205, Oriental Mindoro 
+                        castilletDental@gmail.com
+                    </p>
+                </div>
+            </header>
+            <hr style='height: 1px;
+            background-color: #303840;
+            clear: both;
+            width: 96%;
+            margin: auto;'/>
+    
+            <div style='padding: 15px;'>
+                <p><b>Dear $name,</b></p>
+                <br><br>
+                <p style='text-indent: 20px;'>We want to notify you that your dental appointment request, identified by ticket number <b>$ticket</b>, has been rescheduled to a new date and time <b>$date</b> at <b>$time</b>. To confirm your availability for the updated appointment, please click the button below:</p>
+                <a href='" . SITE_URL . "$page' class='btn'
+                style='
+                float: right;
+                margin: 0 2% 4% 0;
+                background-color: rgba(75, 192, 192, 0.2);
+                border: 1px solid rgb(75, 192, 192);
+                color: rgb(75, 192, 192);
+                text-decoration: none;
+                font-weight: 600;
+                padding: 8px 12px;
+                border-radius: 8px;
+                letter-spacing: 3px;
+                '
+                >Manage Appointment</a>
+    
+                <hr style='height: 1px;
+                background-color: #303840;
+                clear: both;
+                width: 96%;
+                margin: auto;'/>
+    
+                <footer>
+                <p style='
+                    text-align: center;
+                    padding-bottom: 3%;
+                    line-height: 16px;
+                    font-size: 12px;
+                    color: #303840;
+                    '>
+                    <i>*This is an automatically generated email* DO NOT REPLY</i>
+                </p>
+                </footer>
+            </div>
+        </div>";
+
+        $ch = curl_init();
+        $parameters = array(
+            'apikey' => '4cfb842bbb619d7b04aa93cfd5e84d09', //Your API KEY
+            'number' => $contact_number,
+            'message' => "We want to notify you that your dental appointment request has been rescheduled to a new date and time $date at $time, manage your updated appointment schedule on the website. Identified by you Appointment ID $ticket",
+            'sendername' => 'SEMAPHORE'
+        );
+        curl_setopt( $ch, CURLOPT_URL,'https://semaphore.co/api/v4/messages' );
+        curl_setopt( $ch, CURLOPT_POST, 1 );
+
+        //Send the parameters set above with the request
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $parameters ) );
+
+        // Receive response from server
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        $output = curl_exec( $ch );
+        curl_close ($ch);
+
+        if ($mail->send()) {
+            return 1;
+            echo $output;
+        } else {
+            return 0;
+        }
     }
 
     if(isset($_POST['get_all_appointments']))
@@ -345,10 +478,10 @@
     if(isset($_POST['accept_appointment'])){
         $frm_data = filteration($_POST);
 
-        // if (!send_mail($frm_data['patient_email'], 'appointment_accepted', $frm_data['order_id'], $frm_data['date'], $frm_data['time'], $frm_data['phone_num'])) {
-        //     echo 'mail_failed';
-        //     exit;
-        // }
+        if (!send_mail($frm_data['patient_email'], 'appointment_accepted', $frm_data['order_id'], $frm_data['date'], $frm_data['time'], $frm_data['phone_num'])) {
+            echo 'mail_failed';
+            exit;
+        }
 
         $q1 = "UPDATE `appointment_order` SET `appointment_status`=? WHERE `id`=?";
         $values = ['Accepted',$frm_data['id']];
@@ -367,10 +500,10 @@
     if(isset($_POST['cancel_appointment'])){
         $frm_data = filteration($_POST);
 
-        // if (!decline_mail($frm_data['patient_email'], 'appointment_accepted', $frm_data['order_id'], $frm_data['date'], $frm_data['time'], $frm_data['phone_num'])) {
-        //     echo 'mail_failed';
-        //     exit;
-        // }
+        if (!decline_mail($frm_data['patient_email'], 'appointment_accepted', $frm_data['order_id'], $frm_data['date'], $frm_data['time'], $frm_data['phone_num'])) {
+            echo 'mail_failed';
+            exit;
+        }
 
         $q1 = "UPDATE `appointment_order` SET `appointment_status`=? WHERE `id`=?";
         $values = ['Cancelled',$frm_data['id']];
@@ -385,10 +518,10 @@
     if(isset($_POST['reschedule_date'])){
         $frm_data = filteration($_POST);
 
-        // if (!resched_mail($frm_data['patient_email'], 'appointment_resheduled', $frm_data['order_id'], $frm_data['reschedule_date'], $frm_data['reschedule_time'], $frm_data['phone_num'])) {
-        //     echo 'mail_failed';
-        //     exit;
-        // }
+        if (!resched_mail($frm_data['patient_email'], 'appointment_resheduled', $frm_data['order_id'], $frm_data['reschedule_date'], $frm_data['reschedule_time'], $frm_data['phone_num'])) {
+            echo 'mail_failed';
+            exit;
+        }
 
         $q1 = "UPDATE `appointment_order` SET `date`=?, `time`=?, `appointment_status`=? WHERE `id`=?";
         $values = [$frm_data['reschedule_date'],$frm_data['reschedule_time'],'Rescheduled',$frm_data['id']];

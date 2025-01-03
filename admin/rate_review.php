@@ -153,7 +153,7 @@
                                 $negative += 0.2;
                             }
                             else if($neutral >= 0.3){
-                                $sentiment = '<img src="../images/neut-sentiment.png" alt="" style="width: 100px; height: 85px;">';
+                                $sentiment = '<img src="../images/neut-sentiment.png" alt="" style="width: 100px; height: 85px;"> <br> service meets patient expectations';
                             }
 
                             echo<<<query
